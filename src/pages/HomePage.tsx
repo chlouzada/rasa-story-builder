@@ -6,10 +6,6 @@ import parser from '../utils/parser';
 export default function HomePage() {
   const [nlu, setNlu] = useState("");
 
-  useEffect(() => {
-    parser(nlu);
-  }, [nlu]);
-
   return (
     <main className="">
       <div className="container mx-auto h-full">

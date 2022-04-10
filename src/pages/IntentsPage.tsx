@@ -12,7 +12,7 @@ export default function IntentsPage() {
 
 
   const handleSave = () => {
-    const intents = parser(textArea);
+    const intents = parser(textArea, 'nlu');
     console.log('os itentnes são',intents);
     localStorage.setItem("intents", textArea);
   };

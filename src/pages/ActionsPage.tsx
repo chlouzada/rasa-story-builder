@@ -6,10 +6,6 @@ import parser from '../utils/parser';
 export default function ActionsPage() {
   const [nlu, setNlu] = useState("");
 
-  useEffect(() => {
-    parser(nlu);
-  }, [nlu]);
-
   return (
     <main className="">
       <div className="">

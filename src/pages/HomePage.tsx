@@ -4,18 +4,9 @@ import Story from '../components/Story';
 import parser from '../utils/parser';
 
 export default function HomePage() {
-  const [nlu, setNlu] = useState("");
-
   return (
-    <main className="">
-      <div className="container mx-auto h-full">
-        <textarea
-          value={nlu}
-          onChange={(e) => setNlu(e.target.value)}
-        ></textarea>
-
+      <div className="h-full">
         <Story />
       </div>
-    </main>
   )
 }

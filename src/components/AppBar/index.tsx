@@ -12,10 +12,10 @@ export default function AppBar() {
           Home
         </NavLink>
         <NavLink
-          to="/intents"
+          to="/nlu"
           className={navLinkStyle}
         >
-          Intents
+          NLU
         </NavLink>
         <NavLink
           to="/actions"

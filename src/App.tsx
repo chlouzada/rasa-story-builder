@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import AppBar from "./components/AppBar";
-import Story from "./components/Story";
 import ActionsPage from "./pages/ActionsPage";
 import HomePage from "./pages/HomePage";
-import IntentsPage from "./pages/IntentsPage";
-import parser from "./utils/parser";
+import NLUPage from "./pages/NLUPage";
 
 function App() {
   return (
@@ -16,7 +13,7 @@ function App() {
       <section className="row-start-2 row-end-15 container mx-auto overflow-auto">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/intents" element={<IntentsPage />} />
+          <Route path="/nlu" element={<NLUPage />} />
           <Route path="/actions" element={<ActionsPage />} />
         </Routes>
       </section>

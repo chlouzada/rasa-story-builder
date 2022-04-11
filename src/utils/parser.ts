@@ -7,7 +7,7 @@ interface INLUEntry {
   examples: string;
 }
 
-interface INLUResponse {
+export interface INLUResponse {
   intents: IEntry[];
   lookups: IEntry[];
   regexs: IEntry[];
@@ -18,7 +18,9 @@ interface IEntry {
   examples: string[];
 }
 
-export default function parser(content: string, type: "nlu" | "responses") {
+export default function parser(content: string | null, type: "nlu" | "responses") {
+  if (!content) return;
+
   const data = parse(content);
   if (type === "nlu") {
     const object: INLUResponse = {
@@ -26,7 +28,7 @@ export default function parser(content: string, type: "nlu" | "responses") {
       lookups: [],
       regexs: [],
     };
-    data.nlu.map((entry: INLUEntry) => {
+    data?.nlu.map((entry: INLUEntry) => {
       const aux = {
         name: (entry.intent || entry.lookup || entry.regex) as string,
         examples: entry.examples

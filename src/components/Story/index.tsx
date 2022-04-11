@@ -3,6 +3,7 @@ import Action from "../Action";
 import Button from "../Button";
 import Intent from "../Intent";
 import Steps from "../Steps";
+import StoryButtonOverlay from "../StoryButtonOverlay";
 
 export default function Story() {
   const [name, setName] = useState("");
@@ -17,7 +18,7 @@ export default function Story() {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full relative">
       <input
         type="text"
         name="Story Name"
@@ -30,7 +31,9 @@ export default function Story() {
         steps={steps}
         setSteps={setSteps}
       />
-      <div className="flex justify-center ">
+      <StoryButtonOverlay left={addAction} right={addIntent}/>
+      <div className="flex justify-center absolute top-[-1rem]">
+        <div onClick={addAction} >aaaa</div>
         <Button onClick={addAction} text="Add Action" />
         <Button onClick={addIntent} text="Add Intent" type="secondary" />
       </div>

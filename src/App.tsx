@@ -10,7 +10,7 @@ function App() {
       <header className="row-start-1 row-end-2">
         <AppBar />
       </header>
-      <section className="row-start-2 row-end-15 container mx-auto overflow-auto">
+      <section className="row-start-2 row-end-15 container mx-auto overflow-auto py-6 px-4 md:p-0">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/nlu" element={<NLUPage />} />

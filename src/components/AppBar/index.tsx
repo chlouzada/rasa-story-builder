@@ -6,7 +6,7 @@ export default function AppBar() {
     isActive ? "underline font-bold" : "";
 
   return (
-    <header className="w-full py-4 shadow-md ">
+    <header className="w-full py-4 shadow-md px-4 md:px-0">
       <nav className="container mx-auto flex gap-4 text-xl font-semibold">
         <NavLink to="/" className={navLinkStyle}>
           Home

@@ -1,7 +1,9 @@
-import React from 'react'
+import React from "react";
 
 export default function Intent() {
   return (
-    <div>Intent</div>
-  )
+    <div className="w-full">
+      <div className="text-right">Intent</div>
+    </div>
+  );
 }

@@ -11,16 +11,10 @@ export default function AppBar() {
         <NavLink to="/" className={navLinkStyle}>
           Home
         </NavLink>
-        <NavLink
-          to="/nlu"
-          className={navLinkStyle}
-        >
+        <NavLink to="/nlu" className={navLinkStyle}>
           NLU
         </NavLink>
-        <NavLink
-          to="/actions"
-          className={navLinkStyle}
-        >
+        <NavLink to="/actions" className={navLinkStyle}>
           Actions
         </NavLink>
       </nav>

@@ -18,7 +18,10 @@ interface IEntry {
   examples: string[];
 }
 
-export default function parser(content: string | null, type: "nlu" | "responses") {
+export default function parser(
+  content: string | null,
+  type: "nlu" | "responses"
+) {
   if (!content) return;
 
   const data = parse(content);
@@ -35,9 +38,9 @@ export default function parser(content: string | null, type: "nlu" | "responses"
           .split("\n")
           .map((example) => example.slice(2, example.length)),
       };
-      if (entry.intent) object.intents.push(aux)
-      if (entry.lookup) object.lookups.push(aux)
-      if (entry.regex) object.regexs.push(aux)
+      if (entry.intent) object.intents.push(aux);
+      if (entry.lookup) object.lookups.push(aux);
+      if (entry.regex) object.regexs.push(aux);
     });
 
     return object;

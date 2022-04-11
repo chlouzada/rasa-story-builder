@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import AppBar from '../components/AppBar';
-import Story from '../components/Story';
-import parser from '../utils/parser';
+import React, { useEffect, useState } from "react";
+import AppBar from "../components/AppBar";
+import Story from "../components/Story";
+import parser from "../utils/parser";
 
 export default function ActionsPage() {
   const [nlu, setNlu] = useState("");
@@ -17,5 +17,5 @@ export default function ActionsPage() {
         <Story />
       </div>
     </main>
-  )
+  );
 }

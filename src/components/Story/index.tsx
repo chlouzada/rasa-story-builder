@@ -18,11 +18,21 @@ export default function Story() {
 
   return (
     <div className="flex flex-col h-full">
-      <input type="text" name="Story Name" value={name} onChange={(e) => setName(e.target.value)}/>
-      <Steps addAction={addAction} addIntent={addIntent} steps={steps} setSteps={setSteps} />
+      <input
+        type="text"
+        name="Story Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <Steps
+        addAction={addAction}
+        addIntent={addIntent}
+        steps={steps}
+        setSteps={setSteps}
+      />
       <div className="flex justify-center ">
-        <Button onClick={addAction} text="Add Action"/>
-        <Button onClick={addIntent} text="Add Intent" type='secondary'/>
+        <Button onClick={addAction} text="Add Action" />
+        <Button onClick={addIntent} text="Add Intent" type="secondary" />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNlu } from "../../contexts/NluContext";
 import Action from "../Action";
 import Button from "../Button";
 import Intent from "../Intent";
@@ -9,11 +10,15 @@ export default function Story() {
   const [name, setName] = useState("");
   const [steps, setSteps] = useState<JSX.Element[]>([]);
 
+  const { nlu } = useNlu();
+
   const addIntent = () => {
-    setSteps([...steps, <Intent />]);
+    const randomIntent =
+      nlu.intents[Math.floor(Math.random() * nlu.intents.length)];
+
+    setSteps([...steps, <Intent name={randomIntent.name} />]);
   };
   const addAction = () => {
-    console.log(12312);
     setSteps([...steps, <Action />]);
   };
 
@@ -31,9 +36,9 @@ export default function Story() {
         steps={steps}
         setSteps={setSteps}
       />
-      <StoryButtonOverlay left={addAction} right={addIntent}/>
+      <StoryButtonOverlay left={addAction} right={addIntent} />
       <div className="flex justify-center absolute top-[-1rem]">
-        <div onClick={addAction} >aaaa</div>
+        <div onClick={addAction}>aaaa</div>
         <Button onClick={addAction} text="Add Action" />
         <Button onClick={addIntent} text="Add Intent" type="secondary" />
       </div>

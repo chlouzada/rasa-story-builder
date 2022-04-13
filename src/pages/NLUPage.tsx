@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
-import parser, { INLUResponse } from "../utils/parser";
+import { useNlu } from "../contexts/NluContext";
+import parser, { INluResponse } from "../utils/parser";
 
-export default function NLUPage() {
+export default function NluPage() {
   const [textArea, setTextArea] = useState("");
-  const [nlu, setNLU] = useState<INLUResponse>();
+
+  const { nlu, setNlu } = useNlu();
 
   useEffect(() => {
     const localStorageContent = localStorage.getItem("nlu");
     setTextArea(localStorageContent || "");
-    setNLU(parser(localStorageContent, "nlu"));
+    setNlu(parser(localStorageContent, "nlu"));
   }, []);
 
   const handleSave = () => {
     localStorage.setItem("nlu", textArea);
-    setNLU(parser(textArea, "nlu"));
+    setNlu(parser(textArea, "nlu"));
   };
 
   const handleClear = () => {

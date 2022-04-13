@@ -1,13 +1,13 @@
 import { parse, stringify } from "yaml";
 
-interface INLUEntry {
+interface INluEntry {
   intent?: string;
   lookup?: string;
   regex?: string;
   examples: string;
 }
 
-export interface INLUResponse {
+export interface INluResponse {
   intents: IEntry[];
   lookups: IEntry[];
   regexs: IEntry[];
@@ -26,12 +26,12 @@ export default function parser(
 
   const data = parse(content);
   if (type === "nlu") {
-    const object: INLUResponse = {
+    const object: INluResponse = {
       intents: [],
       lookups: [],
       regexs: [],
     };
-    data?.nlu.map((entry: INLUEntry) => {
+    data?.nlu.map((entry: INluEntry) => {
       const aux = {
         name: (entry.intent || entry.lookup || entry.regex) as string,
         examples: entry.examples

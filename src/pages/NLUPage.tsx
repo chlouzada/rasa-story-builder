@@ -11,12 +11,12 @@ export default function NluPage() {
   useEffect(() => {
     const localStorageContent = localStorage.getItem("nlu");
     setTextArea(localStorageContent || "");
-    setNlu(parser(localStorageContent, "nlu"));
+    setNlu(parser(localStorageContent, "nlu") as INluResponse);
   }, []);
 
   const handleSave = () => {
     localStorage.setItem("nlu", textArea);
-    setNlu(parser(textArea, "nlu"));
+    setNlu(parser(textArea, "nlu") as INluResponse);
   };
 
   const handleClear = () => {

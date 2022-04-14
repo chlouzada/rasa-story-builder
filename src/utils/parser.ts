@@ -8,23 +8,33 @@ interface INluEntry {
 }
 
 export interface INluResponse {
-  intents: IEntry[];
-  lookups: IEntry[];
-  regexs: IEntry[];
+  intents: {
+    name: string;
+    examples: string[];
+  }[];
+  lookups: {
+    name: string;
+    examples: string[];
+  }[];
+  regexs: {
+    name: string;
+    examples: string[];
+  }[];
 }
 
-interface IEntry {
-  name: string;
-  examples: string[];
+export interface IActionsResponse {
+  reponses: { name: string; texts: string[] }[]; // TODO: responses com img e text
+  customActions: { name: string }[];
 }
 
 export default function parser(
   content: string | null,
-  type: "nlu" | "responses"
+  type: "nlu" | "actions"
 ) {
   if (!content) return;
 
   const data = parse(content);
+
   if (type === "nlu") {
     const object: INluResponse = {
       intents: [],
@@ -45,5 +55,16 @@ export default function parser(
 
     return object;
   }
-  if (type === "responses") return data.responses;
+  if (type === "actions") {
+    const object: IActionsResponse = {
+      reponses: [],
+      customActions: [],
+    };
+
+    // TODO: push responses and customActions to object
+    console.log(data.responses);
+    console.log(data.actions);
+
+    return object;
+  }
 }

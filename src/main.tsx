@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import { HashRouter } from "react-router-dom";
 import { NluContextProvider } from "./contexts/NluContext";
+import { ActionsContextProvider } from "./contexts/ActionsContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
       <NluContextProvider>
-        <App />
+        <ActionsContextProvider>
+          <App />
+        </ActionsContextProvider>
       </NluContextProvider>
     </HashRouter>
   </React.StrictMode>,

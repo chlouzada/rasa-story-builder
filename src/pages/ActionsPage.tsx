@@ -18,13 +18,13 @@ export default function ActionsPage() {
   // }, []);
 
   const handleSave = () => {
-    localStorage.setItem("actions", textArea);
+    // localStorage.setItem("actions", textArea);
     setActions(parser(textArea, "actions") as IActionsResponse);
   };
 
   const handleClear = () => {
     setTextArea("");
-    localStorage.removeItem("actions");
+    // localStorage.removeItem("actions");
   };
 
   const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {

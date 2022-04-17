@@ -16,13 +16,13 @@ export default function NluPage() {
   // },[]);
 
   const handleSave = () => {
-    localStorage.setItem("nlu", textArea);
+    // localStorage.setItem("nlu", textArea);
     setNlu(parser(textArea, "nlu") as INluResponse);
   };
 
   const handleClear = () => {
     setTextArea("");
-    localStorage.removeItem("nlu");
+    // localStorage.removeItem("nlu");
   };
 
   const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {

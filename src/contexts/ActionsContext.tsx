@@ -24,8 +24,13 @@ export function ActionsContextProvider({
   useEffect(() => {
     const localStorageContent = localStorage.getItem("actions");
     if (!localStorageContent) return;
-    setActions(parser(localStorageContent, "actions") as IActionsResponse);
+    const data = JSON.parse(localStorageContent) as IActionsResponse;
+    setActions(data);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("actions", JSON.stringify(actions));
+  }, [actions]);
 
   const value = {
     actions: actions as IActionsResponse,

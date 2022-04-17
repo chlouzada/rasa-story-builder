@@ -14,5 +14,5 @@ export default function Steps({
   steps: any;
   setSteps: any;
 }) {
-  return <div className="flex flex-col h-full overflow-auto absolute inset-0">{steps}</div>;
+  return <div className="flex flex-col h-full overflow-auto">{steps}</div>;
 }

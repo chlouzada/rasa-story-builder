@@ -12,6 +12,9 @@ export default function ActionsPage() {
 
   useEffect(() => {
     const localStorageContent = localStorage.getItem("actions");
+
+    if (!localStorageContent) return;
+
     setTextArea(localStorageContent || "");
     setActions(parser(localStorageContent, "actions") as IActionsResponse);
   }, []);
@@ -32,11 +35,11 @@ export default function ActionsPage() {
     const text = await fileList.item(0)!.text();
     setTextArea(text);
     setFileInputClearButton(!fileInputClearButton);
+    console.log(actions);
   };
 
   const handleFileInputClear = () => {
     const input = document.getElementById("fileInput") as HTMLInputElement;
-    console.log(input);
     input.value = "";
     setFileInputClearButton(!fileInputClearButton);
   };

@@ -34,7 +34,6 @@ export default function NluPage() {
 
   const handleFileInputClear = () => {
     const input = document.getElementById("fileInput") as HTMLInputElement;
-    console.log(input);
     input.value = "";
     setFileInputClearButton(!fileInputClearButton);
   };

@@ -31,7 +31,7 @@ export default function parser(
   content: string | null,
   type: "nlu" | "actions"
 ) {
-  if (!content) return;
+  if (!content) throw new Error("content is null");
 
   const data = parse(content);
 
@@ -61,9 +61,18 @@ export default function parser(
       customActions: [],
     };
 
-    // TODO: push responses and customActions to object
-    console.log(data.responses);
-    console.log(data.actions);
+    // transform data.responses oject to array
+    const responses = Object.keys(data.responses).map((key) => {
+      return {
+        name: key,
+        texts: data.responses[key],
+      };
+    });
+
+    object.customActions = data.actions;
+
+    // TODO: outros tipos de responses (img/button)
+    object.reponses = responses;
 
     return object;
   }

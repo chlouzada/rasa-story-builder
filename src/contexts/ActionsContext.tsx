@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { IActionsResponse, INluResponse } from "../utils/parser";
+import parser, { IActionsResponse, INluResponse } from "../utils/parser";
 
 interface IActions {
   actions: IActionsResponse;
@@ -20,6 +20,12 @@ export function ActionsContextProvider({
   children: React.ReactNode;
 }) {
   const [actions, setActions] = useState<IActionsResponse>();
+
+  useEffect(() => {
+    const localStorageContent = localStorage.getItem("actions");
+    if (!localStorageContent) return;
+    setActions(parser(localStorageContent, "actions") as IActionsResponse);
+  }, []);
 
   const value = {
     actions: actions as IActionsResponse,

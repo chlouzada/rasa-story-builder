@@ -10,14 +10,12 @@ export default function ActionsPage() {
 
   const { actions, setActions } = useActions();
 
-  useEffect(() => {
-    const localStorageContent = localStorage.getItem("actions");
-
-    if (!localStorageContent) return;
-
-    setTextArea(localStorageContent || "");
-    setActions(parser(localStorageContent, "actions") as IActionsResponse);
-  }, []);
+  // useEffect(() => {
+  //   const localStorageContent = localStorage.getItem("actions");
+  //   if (!localStorageContent) return;
+  //   setTextArea(localStorageContent || "");
+  //   setActions(parser(localStorageContent, "actions") as IActionsResponse);
+  // }, []);
 
   const handleSave = () => {
     localStorage.setItem("actions", textArea);
@@ -35,7 +33,6 @@ export default function ActionsPage() {
     const text = await fileList.item(0)!.text();
     setTextArea(text);
     setFileInputClearButton(!fileInputClearButton);
-    console.log(actions);
   };
 
   const handleFileInputClear = () => {

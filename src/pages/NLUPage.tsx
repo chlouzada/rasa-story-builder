@@ -8,11 +8,12 @@ export default function NluPage() {
 
   const { nlu, setNlu } = useNlu();
 
-  useEffect(() => {
-    const localStorageContent = localStorage.getItem("nlu");
-    setTextArea(localStorageContent || "");
-    setNlu(parser(localStorageContent, "nlu") as INluResponse);
-  }, []);
+  // useEffect(() => {
+  //   const localStorageContent = localStorage.getItem("nlu");
+  //   if (!localStorageContent) return;
+  //   setTextArea(localStorageContent || "");
+  //   setNlu(parser(localStorageContent, "nlu") as INluResponse);
+  // },[]);
 
   const handleSave = () => {
     localStorage.setItem("nlu", textArea);

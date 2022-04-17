@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { INluResponse } from "../utils/parser";
+import parser, { INluResponse } from "../utils/parser";
 
 interface INlu {
   nlu: INluResponse;
@@ -18,6 +18,12 @@ export function NluContextProvider({
   children: React.ReactNode;
 }) {
   const [nlu, setNlu] = useState<INluResponse>();
+
+  useEffect(() => {
+    const localStorageContent = localStorage.getItem("nlu");
+    if (!localStorageContent) return;
+    setNlu(parser(localStorageContent, "nlu") as INluResponse);
+  }, []);
 
   const value = {
     nlu: nlu as INluResponse,

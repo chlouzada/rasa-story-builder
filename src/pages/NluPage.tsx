@@ -42,7 +42,7 @@ export default function NluPage() {
   return (
     <div className="flex flex-col">
       <div>
-        {nlu?.intents.map((intent, index) => (
+        {nlu?.intents?.map((intent, index) => (
           <div key={intent.name + index}>{intent.name}</div>
         ))}
       </div>

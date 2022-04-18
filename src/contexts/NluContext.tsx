@@ -20,7 +20,7 @@ export function NluContextProvider({
   const [nlu, setNlu] = useState<INluResponse>();
 
   useEffect(() => {
-    const localStorageContent = localStorage.getItem("nlu");
+    const localStorageContent = localStorage.getItem("nlu") || "{}";
     if (!localStorageContent) return;
     const data = JSON.parse(localStorageContent) as INluResponse;
     setNlu(data);

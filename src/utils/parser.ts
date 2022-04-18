@@ -8,15 +8,15 @@ interface INluEntry {
 }
 
 export interface INluResponse {
-  intents: {
+  intents?: {
     name: string;
     examples: string[];
   }[];
-  lookups: {
+  lookups?: {
     name: string;
     examples: string[];
   }[];
-  regexs: {
+  regexs?: {
     name: string;
     examples: string[];
   }[];
@@ -48,9 +48,9 @@ export default function parser(
           .split("\n")
           .map((example) => example.slice(2, example.length)),
       };
-      if (entry.intent) object.intents.push(aux);
-      if (entry.lookup) object.lookups.push(aux);
-      if (entry.regex) object.regexs.push(aux);
+      if (entry.intent) object.intents!.push(aux);
+      if (entry.lookup) object.lookups!.push(aux);
+      if (entry.regex) object.regexs!.push(aux);
     });
 
     return object;

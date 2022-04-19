@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNlu } from "../contexts/NluContext";
-import parser, { INluResponse } from "../utils/parser";
+import parser from "../utils/parser";
 
 export default function NluPage() {
   const [textArea, setTextArea] = useState("");

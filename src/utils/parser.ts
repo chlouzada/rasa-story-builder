@@ -7,22 +7,22 @@ interface INluEntry {
   examples: string;
 }
 
-export interface INluResponse {
-  intents?: {
+interface INluResponse {
+  intents: {
     name: string;
     examples: string[];
   }[];
-  lookups?: {
+  lookups: {
     name: string;
     examples: string[];
   }[];
-  regexs?: {
+  regexs: {
     name: string;
     examples: string[];
   }[];
 }
 
-export interface IActionsResponse {
+interface IActionsResponse {
   reponses: { name: string; texts: string[] }[]; // TODO: responses com img e text
   customActions: { name: string }[];
 }

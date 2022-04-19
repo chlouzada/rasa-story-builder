@@ -1,15 +1,29 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import parser, { INluResponse } from "../utils/parser";
 
-interface INlu {
-  nlu: INluResponse;
-  setNlu: React.Dispatch<React.SetStateAction<INluResponse | undefined>>;
+interface INluContext {
+  nlu: INlu;
+  setNlu: React.Dispatch<React.SetStateAction<INlu | undefined>>;
 }
 
-const NluContext = createContext<INlu | undefined>(undefined);
+interface INlu {
+  intents: {
+    name: string;
+    examples: string[];
+  }[];
+  lookups: {
+    name: string;
+    examples: string[];
+  }[];
+  regexs: {
+    name: string;
+    examples: string[];
+  }[];
+}
+
+const NluContext = createContext<INluContext | undefined>(undefined);
 
 export function useNlu() {
-  return useContext(NluContext) as INlu;
+  return useContext(NluContext) as INluContext;
 }
 
 export function NluContextProvider({
@@ -17,12 +31,12 @@ export function NluContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [nlu, setNlu] = useState<INluResponse>();
+  const [nlu, setNlu] = useState<INlu>();
 
   useEffect(() => {
     const localStorageContent = localStorage.getItem("nlu") || "{}";
     if (!localStorageContent) return;
-    const data = JSON.parse(localStorageContent) as INluResponse;
+    const data = JSON.parse(localStorageContent) as INlu;
     setNlu(data);
   }, []);
 
@@ -31,7 +45,7 @@ export function NluContextProvider({
   }, [nlu]);
 
   const value = {
-    nlu: nlu as INluResponse,
+    nlu: nlu as INlu,
     setNlu,
   };
 

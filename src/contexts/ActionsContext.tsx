@@ -1,17 +1,19 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import parser, { IActionsResponse, INluResponse } from "../utils/parser";
 
-interface IActions {
-  actions: IActionsResponse;
-  setActions: React.Dispatch<
-    React.SetStateAction<IActionsResponse | undefined>
-  >;
+interface IActionsContext {
+  actions: IActions;
+  setActions: React.Dispatch<React.SetStateAction<IActions | undefined>>;
 }
 
-const ActionsContext = createContext<IActions | undefined>(undefined);
+interface IActions {
+  reponses: { name: string; texts: string[] }[]; // TODO: responses com img e text
+  customActions: { name: string }[];
+}
+
+const ActionsContext = createContext<IActionsContext | undefined>(undefined);
 
 export function useActions() {
-  return useContext(ActionsContext) as IActions;
+  return useContext(ActionsContext) as IActionsContext;
 }
 
 export function ActionsContextProvider({
@@ -19,12 +21,12 @@ export function ActionsContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [actions, setActions] = useState<IActionsResponse>();
+  const [actions, setActions] = useState<IActions>();
 
   useEffect(() => {
     const localStorageContent = localStorage.getItem("actions");
     if (!localStorageContent) return;
-    const data = JSON.parse(localStorageContent) as IActionsResponse;
+    const data = JSON.parse(localStorageContent) as IActions;
     setActions(data);
   }, []);
 
@@ -33,7 +35,7 @@ export function ActionsContextProvider({
   }, [actions]);
 
   const value = {
-    actions: actions as IActionsResponse,
+    actions: actions as IActions,
     setActions,
   };
 

@@ -8,21 +8,13 @@ export default function NluPage() {
 
   const { nlu, setNlu } = useNlu();
 
-  // useEffect(() => {
-  //   const localStorageContent = localStorage.getItem("nlu");
-  //   if (!localStorageContent) return;
-  //   setTextArea(localStorageContent || "");
-  //   setNlu(parser(localStorageContent, "nlu") as INluResponse);
-  // },[]);
-
   const handleSave = () => {
-    // localStorage.setItem("nlu", textArea);
-    setNlu(parser(textArea, "nlu") as INluResponse);
+    const parsedData = parser(textArea, "nlu");
+    setNlu(parsedData.nlu);
   };
 
   const handleClear = () => {
     setTextArea("");
-    // localStorage.removeItem("nlu");
   };
 
   const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {

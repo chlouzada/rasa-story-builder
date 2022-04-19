@@ -7,7 +7,7 @@ interface INluEntry {
   examples: string;
 }
 
-interface INluResponse {
+interface INluParsed {
   intents: {
     name: string;
     examples: string[];
@@ -22,21 +22,23 @@ interface INluResponse {
   }[];
 }
 
-interface IActionsResponse {
+interface IActionsParsed {
   reponses: { name: string; texts: string[] }[]; // TODO: responses com img e text
   customActions: { name: string }[];
 }
 
-export default function parser(
+export default function parseRasaFile(
   content: string | null,
   type: "nlu" | "actions"
-) {
+): { nlu?: INluParsed; actions?: IActionsParsed } {
   if (!content) throw new Error("content is null");
 
   const data = parse(content);
 
+  const parsed: { nlu?: INluParsed; actions?: IActionsParsed } = {};
+
   if (type === "nlu") {
-    const object: INluResponse = {
+    const nluObject: INluParsed = {
       intents: [],
       lookups: [],
       regexs: [],
@@ -48,15 +50,15 @@ export default function parser(
           .split("\n")
           .map((example) => example.slice(2, example.length)),
       };
-      if (entry.intent) object.intents!.push(aux);
-      if (entry.lookup) object.lookups!.push(aux);
-      if (entry.regex) object.regexs!.push(aux);
+      if (entry.intent) nluObject.intents!.push(aux);
+      if (entry.lookup) nluObject.lookups!.push(aux);
+      if (entry.regex) nluObject.regexs!.push(aux);
     });
 
-    return object;
+    parsed.nlu = nluObject;
   }
   if (type === "actions") {
-    const object: IActionsResponse = {
+    const actionsObject: IActionsParsed = {
       reponses: [],
       customActions: [],
     };
@@ -69,11 +71,13 @@ export default function parser(
       };
     });
 
-    object.customActions = data.actions;
+    actionsObject.customActions = data.actions;
 
     // TODO: outros tipos de responses (img/button)
-    object.reponses = responses;
+    actionsObject.reponses = responses;
 
-    return object;
+    parsed.actions = actionsObject;
   }
+
+  return parsed;
 }

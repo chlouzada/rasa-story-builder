@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AppBar from "../components/AppBar";
 import Story from "../components/Story";
 import { useActions } from "../contexts/ActionsContext";
-import parser, { IActionsResponse } from "../utils/parser";
+import parser from "../utils/parser";
 
 export default function ActionsPage() {
   const [textArea, setTextArea] = useState("");
@@ -10,21 +10,13 @@ export default function ActionsPage() {
 
   const { actions, setActions } = useActions();
 
-  // useEffect(() => {
-  //   const localStorageContent = localStorage.getItem("actions");
-  //   if (!localStorageContent) return;
-  //   setTextArea(localStorageContent || "");
-  //   setActions(parser(localStorageContent, "actions") as IActionsResponse);
-  // }, []);
-
   const handleSave = () => {
-    // localStorage.setItem("actions", textArea);
-    setActions(parser(textArea, "actions") as IActionsResponse);
+    const parsedData = parser(textArea, "actions");
+    setActions(parsedData.actions);
   };
 
   const handleClear = () => {
     setTextArea("");
-    // localStorage.removeItem("actions");
   };
 
   const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {

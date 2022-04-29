@@ -26,6 +26,7 @@ export function ActionsContextProvider({
   useEffect(() => {
     const localStorageContent = localStorage.getItem("actions");
     if (!localStorageContent) return;
+    if (localStorageContent === "undefined") return;
     const data = JSON.parse(localStorageContent) as IActions;
     setActions(data);
   }, []);

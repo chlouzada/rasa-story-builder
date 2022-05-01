@@ -42,7 +42,7 @@ export default function AsideBar() {
                 </Text>
               </div>
               <div className="">
-                {actions?.reponses.map((action) => (
+                {actions?.responses?.map((action) => (
                   <div>{action.name}</div>
                 ))}
               </div>
@@ -69,7 +69,7 @@ export default function AsideBar() {
                   Custom Actions
                 </Text>
               </div>
-              {actions?.customActions.map((action) => (
+              {actions?.customActions?.map((action) => (
                 <div>{action.name}</div>
               ))}
             </div>
@@ -107,7 +107,7 @@ export default function AsideBar() {
                   Regex
                 </Text>
               </div>
-              {nlu?.intents.map((entry) => (
+              {nlu?.intents?.map((entry) => (
                 <div>{entry.name}</div>
               ))}
             </div>
@@ -143,7 +143,7 @@ export default function AsideBar() {
                   Regex
                 </Text>
               </div>
-              {nlu?.lookups.map((entry) => (
+              {nlu?.lookups?.map((entry) => (
                 <div>{entry.name}</div>
               ))}
             </div>
@@ -179,7 +179,7 @@ export default function AsideBar() {
                   Regex
                 </Text>
               </div>
-              {nlu?.regexs.map((entry) => (
+              {nlu?.regexs?.map((entry) => (
                 <div>{entry.name}</div>
               ))}
             </div>

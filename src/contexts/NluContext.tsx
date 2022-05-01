@@ -6,18 +6,32 @@ interface INluContext {
 }
 
 interface INlu {
-  intents: {
-    name: string;
-    examples: string[];
-  }[];
-  lookups: {
-    name: string;
-    examples: string[];
-  }[];
-  regexs: {
-    name: string;
-    examples: string[];
-  }[];
+  intents?: INluIntent[];
+  lookups?: INluLookup[];
+  regexs?: INluRegex[];
+}
+
+export enum NluTypeEnum {
+  INTENT = "INTENT",
+  LOOKUP = "LOOKUP",
+  REGEX = "REGEX",
+}
+
+export interface INluIntent extends INluEntryBase {
+  type: NluTypeEnum.INTENT;
+}
+
+export interface INluLookup extends INluEntryBase {
+  type: NluTypeEnum.LOOKUP;
+}
+
+export interface INluRegex extends INluEntryBase {
+  type: NluTypeEnum.REGEX;
+}
+
+export interface INluEntryBase {
+  name: string;
+  examples: string[];
 }
 
 const NluContext = createContext<INluContext | undefined>(undefined);
@@ -34,8 +48,9 @@ export function NluContextProvider({
   const [nlu, setNlu] = useState<INlu>();
 
   useEffect(() => {
-    const localStorageContent = localStorage.getItem("nlu") || "{}";
+    const localStorageContent = localStorage.getItem("nlu");
     if (!localStorageContent) return;
+    if (localStorageContent === "undefined") return;
     const data = JSON.parse(localStorageContent) as INlu;
     setNlu(data);
   }, []);

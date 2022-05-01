@@ -6,8 +6,24 @@ interface IActionsContext {
 }
 
 interface IActions {
-  reponses: { name: string; texts: string[] }[]; // TODO: responses com img e text
-  customActions: { name: string }[];
+  responses?: IActionResponse[]; // TODO: responses com img e text
+  customActions?: ICustomActionResponse[];
+}
+
+export enum ActionTypeEnum {
+  RESPONSE = "RESPONSE",
+  CUSTOM_ACTION = "CUSTOM_ACTION",
+}
+
+export interface IActionResponse {
+  type: ActionTypeEnum.RESPONSE;
+  name: string;
+  texts: string[];
+}
+
+export interface ICustomActionResponse {
+  type: ActionTypeEnum.CUSTOM_ACTION;
+  name: string;
 }
 
 const ActionsContext = createContext<IActionsContext | undefined>(undefined);
@@ -26,6 +42,7 @@ export function ActionsContextProvider({
   useEffect(() => {
     const localStorageContent = localStorage.getItem("actions");
     if (!localStorageContent) return;
+    if (localStorageContent === "undefined") return;
     const data = JSON.parse(localStorageContent) as IActions;
     setActions(data);
   }, []);

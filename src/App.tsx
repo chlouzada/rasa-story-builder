@@ -1,10 +1,4 @@
-import {
-  AppShell,
-  Burger,
-  Header,
-  MediaQuery,
-  useMantineTheme,
-} from "@mantine/core";
+import { AppShell, MediaQuery, useMantineTheme } from "@mantine/core";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import AppBar from "./components/AppBar";
@@ -38,25 +32,7 @@ function App() {
         </MediaQuery>
       }
       footer={<Footer />}
-      header={
-        <Header height={70} p="md">
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
-
-            <AppBar />
-          </div>
-        </Header>
-      }
+      header={<AppBar opened={opened} setOpened={setOpened} />}
     >
       <Routes>
         <Route path="/" element={<HomePage />} />

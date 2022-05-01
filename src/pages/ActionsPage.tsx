@@ -36,9 +36,9 @@ export default function ActionsPage() {
   return (
     <div className="flex flex-col">
       <div>
-        res{actions?.reponses.length}
+        res{actions?.responses?.length}
         <br />
-        ca{actions?.customActions.length}
+        ca{actions?.customActions?.length}
       </div>
 
       <textarea

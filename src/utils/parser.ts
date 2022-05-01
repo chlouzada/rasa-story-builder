@@ -23,7 +23,7 @@ interface INluParsed {
 }
 
 interface IActionsParsed {
-  reponses: { name: string; texts: string[] }[]; // TODO: responses com img e text
+  responses: { name: string; texts: string[] }[]; // TODO: responses com img e text
   customActions: { name: string }[];
 }
 
@@ -59,7 +59,7 @@ export default function parseRasaFile(
   }
   if (type === "actions") {
     const actionsObject: IActionsParsed = {
-      reponses: [],
+      responses: [],
       customActions: [],
     };
 
@@ -74,7 +74,7 @@ export default function parseRasaFile(
     actionsObject.customActions = data.actions;
 
     // TODO: outros tipos de responses (img/button)
-    actionsObject.reponses = responses;
+    actionsObject.responses = responses;
 
     parsed.actions = actionsObject;
   }

@@ -6,7 +6,7 @@ interface IActionsContext {
 }
 
 interface IActions {
-  reponses?: IActionResponse[]; // TODO: responses com img e text
+  responses?: IActionResponse[]; // TODO: responses com img e text
   customActions?: ICustomActionResponse[];
 }
 

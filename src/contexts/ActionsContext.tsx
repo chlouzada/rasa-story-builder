@@ -10,12 +10,19 @@ interface IActions {
   customActions?: ICustomActionResponse[];
 }
 
+export enum ActionTypeEnum {
+  RESPONSE = "RESPONSE",
+  CUSTOM_ACTION = "CUSTOM_ACTION",
+}
+
 export interface IActionResponse {
+  type: ActionTypeEnum.RESPONSE;
   name: string;
   texts: string[];
 }
 
 export interface ICustomActionResponse {
+  type: ActionTypeEnum.CUSTOM_ACTION;
   name: string;
 }
 

@@ -1,14 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { IActionResponse, ICustomActionResponse } from "./ActionsContext";
-import { INluEntry } from "./NluContext";
+import { INluIntent } from "./NluContext";
 
 interface IStoryBuilderContext {
-  steps: (INluEntry | IActionResponse | ICustomActionResponse)[];
+  steps: (INluIntent | IActionResponse | ICustomActionResponse)[];
   clear: () => void;
-  addStep: (step: INluEntry | IActionResponse | ICustomActionResponse) => void;
+  addStep: (step: INluIntent | IActionResponse | ICustomActionResponse) => void;
 }
-
-interface IStoryBuilder {}
 
 const StoryBuilderContext = createContext<IStoryBuilderContext | undefined>(
   undefined
@@ -24,11 +22,11 @@ export function StoryBuilderContextProvider({
   children: React.ReactNode;
 }) {
   const [steps, setSteps] = useState<
-    (INluEntry | IActionResponse | ICustomActionResponse)[]
+    (INluIntent | IActionResponse | ICustomActionResponse)[]
   >([]);
 
   const addStep = (
-    step: INluEntry | IActionResponse | ICustomActionResponse
+    step: INluIntent | IActionResponse | ICustomActionResponse
   ) => {
     if (steps.length === 0) setSteps([step]);
 

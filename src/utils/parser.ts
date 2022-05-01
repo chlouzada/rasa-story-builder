@@ -1,4 +1,15 @@
 import { parse, stringify } from "yaml";
+import {
+  ActionTypeEnum,
+  IActionResponse,
+  ICustomActionResponse,
+} from "../contexts/ActionsContext";
+import {
+  INluIntent,
+  INluLookup,
+  INluRegex,
+  NluTypeEnum,
+} from "../contexts/NluContext";
 
 interface INluEntry {
   intent?: string;
@@ -8,23 +19,14 @@ interface INluEntry {
 }
 
 interface INluParsed {
-  intents: {
-    name: string;
-    examples: string[];
-  }[];
-  lookups: {
-    name: string;
-    examples: string[];
-  }[];
-  regexs: {
-    name: string;
-    examples: string[];
-  }[];
+  intents: INluIntent[];
+  lookups: INluLookup[];
+  regexs: INluRegex[];
 }
 
 interface IActionsParsed {
-  responses: { name: string; texts: string[] }[]; // TODO: responses com img e text
-  customActions: { name: string }[];
+  responses: IActionResponse[]; // TODO: responses com img e text
+  customActions: ICustomActionResponse[];
 }
 
 export default function parseRasaFile(
@@ -44,15 +46,25 @@ export default function parseRasaFile(
       regexs: [],
     };
     data?.nlu.map((entry: INluEntry) => {
-      const aux = {
+      let aux = {
         name: (entry.intent || entry.lookup || entry.regex) as string,
         examples: entry.examples
           .split("\n")
           .map((example) => example.slice(2, example.length)),
       };
-      if (entry.intent) nluObject.intents!.push(aux);
-      if (entry.lookup) nluObject.lookups!.push(aux);
-      if (entry.regex) nluObject.regexs!.push(aux);
+
+      let type: NluTypeEnum = NluTypeEnum.INTENT;
+      if (entry.lookup) type = NluTypeEnum.LOOKUP;
+      if (entry.regex) type = NluTypeEnum.REGEX;
+
+      const nlu = {
+        ...aux,
+        type,
+      };
+
+      if (entry.intent) nluObject.intents!.push(nlu as INluIntent);
+      if (entry.lookup) nluObject.lookups!.push(nlu as INluLookup);
+      if (entry.regex) nluObject.regexs!.push(nlu as INluRegex);
     });
 
     parsed.nlu = nluObject;
@@ -64,16 +76,21 @@ export default function parseRasaFile(
     };
 
     // transform data.responses oject to array
-    const responses = Object.keys(data.responses).map((key) => {
-      return {
-        name: key,
-        texts: data.responses[key],
-      };
-    });
+    const responses = Object.keys(data.responses).map((key) => ({
+      name: key,
+      texts: data.responses[key] as string[],
+      type: ActionTypeEnum.RESPONSE as ActionTypeEnum.RESPONSE, // FIXME: ?????
+    }));
 
-    actionsObject.customActions = data.actions;
+    const customActions: string[] = data.actions;
+
+    actionsObject.customActions = customActions.map((action) => ({
+      type: ActionTypeEnum.CUSTOM_ACTION,
+      name: action,
+    }));
 
     // TODO: outros tipos de responses (img/button)
+
     actionsObject.responses = responses;
 
     parsed.actions = actionsObject;

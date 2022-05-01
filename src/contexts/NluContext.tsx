@@ -6,12 +6,30 @@ interface INluContext {
 }
 
 interface INlu {
-  intents?: INluEntry[];
-  lookups?: INluEntry[];
-  regexs?: INluEntry[];
+  intents?: INluIntent[];
+  lookups?: INluLookup[];
+  regexs?: INluRegex[];
 }
 
-export interface INluEntry {
+export enum NluTypeEnum {
+  INTENT = "INTENT",
+  LOOKUP = "LOOKUP",
+  REGEX = "REGEX",
+}
+
+export interface INluIntent extends INluEntryBase {
+  type: NluTypeEnum.INTENT;
+}
+
+export interface INluLookup extends INluEntryBase {
+  type: NluTypeEnum.LOOKUP;
+}
+
+export interface INluRegex extends INluEntryBase {
+  type: NluTypeEnum.REGEX;
+}
+
+export interface INluEntryBase {
   name: string;
   examples: string[];
 }

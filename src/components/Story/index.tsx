@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useActions } from "../../contexts/ActionsContext";
-import { useNlu } from "../../contexts/NluContext";
+import { ActionTypeEnum, useActions } from "../../contexts/ActionsContext";
+import { NluTypeEnum, useNlu } from "../../contexts/NluContext";
 import { useStoryBuilder } from "../../contexts/StoryBuilderContext";
 import Action from "../Action";
 import Button from "../Button";
 import Intent from "../Intent";
-// import Steps from "../Steps";
 
 const AlwaysScrollToBottom = () => {
   const elementRef = useRef<HTMLDivElement>(null);
@@ -23,6 +22,16 @@ export default function Story() {
   const { nlu } = useNlu();
   const { actions } = useActions();
 
+  const handleAddActionStep = () => {
+    console.log("action é ", actions);
+    addStep(actions.responses?.[0]!);
+  };
+
+  const handleAddIntentStep = () => {
+    console.log("o intent é", nlu.intents?.[0]!);
+    addStep(nlu.intents?.[0]!);
+  };
+
   return (
     <div className="flex flex-col h-full">
       <input
@@ -32,22 +41,22 @@ export default function Story() {
         onChange={(e) => setName(e.target.value)}
       />
       <div ref={stepsRef} className="flex flex-col h-full overflow-auto">
-        {steps.map((step, index) => {
-          console.log(typeof step);
+        {steps.map((step) => {
+          if (step.type === NluTypeEnum.INTENT)
+            return <Intent name={step.name} />;
 
-          console.log("mapping to ", step, index);
-          return <div>a</div>;
+          return <Action />;
         })}
         <AlwaysScrollToBottom />
       </div>
 
       <div className="flex justify-center">
         <Button
-          onClick={() => addStep(actions.reponses?.[0]!)}
+          onClick={handleAddActionStep}
           text="Add Action"
           type="secondary"
         />
-        <Button onClick={() => addStep(nlu.intents?.[0]!)} text="Add Intent" />
+        <Button onClick={handleAddIntentStep} text="Add Intent" />
       </div>
     </div>
   );

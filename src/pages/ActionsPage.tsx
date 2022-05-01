@@ -35,12 +35,6 @@ export default function ActionsPage() {
 
   return (
     <div className="flex flex-col">
-      <div>
-        res{actions?.responses?.length}
-        <br />
-        ca{actions?.customActions?.length}
-      </div>
-
       <textarea
         cols={100}
         rows={20}

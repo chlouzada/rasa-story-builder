@@ -6,9 +6,9 @@ interface INluContext {
 }
 
 interface INlu {
-  intents: INluEntry[];
-  lookups: INluEntry[];
-  regexs: INluEntry[];
+  intents?: INluEntry[];
+  lookups?: INluEntry[];
+  regexs?: INluEntry[];
 }
 
 export interface INluEntry {

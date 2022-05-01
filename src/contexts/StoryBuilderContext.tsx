@@ -3,7 +3,7 @@ import { IActionResponse, ICustomActionResponse } from "./ActionsContext";
 import { INluEntry } from "./NluContext";
 
 interface IStoryBuilderContext {
-  steps: (INluEntry | IActionResponse | ICustomActionResponse)[] | undefined;
+  steps: (INluEntry | IActionResponse | ICustomActionResponse)[];
   clear: () => void;
   addStep: (step: INluEntry | IActionResponse | ICustomActionResponse) => void;
 }
@@ -23,15 +23,16 @@ export function StoryBuilderContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [steps, setSteps] =
-    useState<(INluEntry | IActionResponse | ICustomActionResponse)[]>();
+  const [steps, setSteps] = useState<
+    (INluEntry | IActionResponse | ICustomActionResponse)[]
+  >([]);
 
   const addStep = (
     step: INluEntry | IActionResponse | ICustomActionResponse
   ) => {
-    if (!steps) return;
+    if (steps.length === 0) setSteps([step]);
 
-    setSteps([...steps, step]);
+    setSteps([...steps!, step]);
   };
 
   const clear = () => {

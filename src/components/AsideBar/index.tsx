@@ -2,16 +2,23 @@ import { Aside, SimpleGrid, Text } from "@mantine/core";
 import React, { useState } from "react";
 import { useActions } from "../../contexts/ActionsContext";
 import { useNlu } from "../../contexts/NluContext";
+import { useStoryBuilder } from "../../contexts/StoryBuilderContext";
 
 export default function AsideBar() {
-  const { actions } = useActions();
-  const { nlu } = useNlu();
-
   const [actionTab, setActionTab] = useState(0);
   const [nluTab, setNluTab] = useState(0);
 
+  const { actions } = useActions();
+  const { nlu } = useNlu();
+  const { addStep } = useStoryBuilder();
+
   return (
-    <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
+    <Aside
+      p="md"
+      hiddenBreakpoint="sm"
+      hidden={true}
+      width={{ sm: 200, lg: 300 }}
+    >
       <SimpleGrid
         cols={1}
         sx={(theme) => ({
@@ -43,7 +50,7 @@ export default function AsideBar() {
               </div>
               <div className="">
                 {actions?.responses?.map((action) => (
-                  <div>{action.name}</div>
+                  <div onClick={() => addStep(action)}>{action.name}</div>
                 ))}
               </div>
             </div>
@@ -70,7 +77,7 @@ export default function AsideBar() {
                 </Text>
               </div>
               {actions?.customActions?.map((action) => (
-                <div>{action.name}</div>
+                <div onClick={() => addStep(action)}>{action.name}</div>
               ))}
             </div>
           )}
@@ -108,7 +115,7 @@ export default function AsideBar() {
                 </Text>
               </div>
               {nlu?.intents?.map((entry) => (
-                <div>{entry.name}</div>
+                <div onClick={() => addStep(entry)}>{entry.name}</div>
               ))}
             </div>
           )}

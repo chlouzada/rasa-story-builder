@@ -6,8 +6,17 @@ interface IActionsContext {
 }
 
 interface IActions {
-  reponses: { name: string; texts: string[] }[]; // TODO: responses com img e text
-  customActions: { name: string }[];
+  reponses: IActionResponse[]; // TODO: responses com img e text
+  customActions: ICustomActionResponse[];
+}
+
+export interface IActionResponse {
+  name: string;
+  texts: string[];
+}
+
+export interface ICustomActionResponse {
+  name: string;
 }
 
 const ActionsContext = createContext<IActionsContext | undefined>(undefined);

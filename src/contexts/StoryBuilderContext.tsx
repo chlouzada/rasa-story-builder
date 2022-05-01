@@ -32,7 +32,7 @@ export function StoryBuilderContextProvider({
   ) => {
     if (steps.length === 0) setSteps([step]);
 
-    setSteps([...steps!, step]);
+    setSteps([...steps, step]);
   };
 
   const clear = () => {

@@ -6,18 +6,14 @@ interface INluContext {
 }
 
 interface INlu {
-  intents: {
-    name: string;
-    examples: string[];
-  }[];
-  lookups: {
-    name: string;
-    examples: string[];
-  }[];
-  regexs: {
-    name: string;
-    examples: string[];
-  }[];
+  intents: INluEntry[];
+  lookups: INluEntry[];
+  regexs: INluEntry[];
+}
+
+export interface INluEntry {
+  name: string;
+  examples: string[];
 }
 
 const NluContext = createContext<INluContext | undefined>(undefined);

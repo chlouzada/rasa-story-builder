@@ -4,9 +4,9 @@ import { IntentsView } from '../components/IntentsView';
 import { StoryView } from '../components/StoryView';
 import { DndContext } from '../contexts/DndContext';
 
-export const StoryBuilder = () => {
+export const StoryBuilderPage = () => {
   return (
-    <main className="grid grid-cols-10 h-full pt-[56px]">
+    <main className="grid grid-cols-10 h-full pt-[48px]">
       <DndContext>
         <ActionsView className="col-start-1 col-end-3 shadow-2xl" />
         <StoryView className="col-start-3 col-end-9 mx-24 my-4" />

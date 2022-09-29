@@ -27,7 +27,7 @@ import {
 
 export const parser = (
   content: string | null,
-  type: 'nlu' | 'actions'
+  type: 'NLU' | 'ACTIONS'
 ): { nlu?: any; actions?: Actions } => {
   if (!content) throw new Error('content is null');
 
@@ -35,7 +35,7 @@ export const parser = (
 
   const parsed: { nlu?: any; actions?: Actions } = {};
 
-  if (type === 'nlu') {
+  if (type === 'NLU') {
     // const nluObject: INluParsed = {
     //   intents: [],
     //   lookups: [],
@@ -61,7 +61,7 @@ export const parser = (
     // });
     // parsed.nlu = nluObject;
   }
-  if (type === 'actions') {
+  if (type === 'ACTIONS') {
     const actions: Actions = {
       responses: [],
       customActions: [],

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { useActionsStore } from '../stores/actions';
+import { parser } from '../utils/parser';
 
-const InputView: React.FC<{ className: string }> = ({ className }) => {
+const InputView: React.FC<{ className: string; type: 'ACTIONS' | 'NLU' }> = ({
+  className,
+  type,
+}) => {
   const [text, setText] = useState('');
   const [clearInput, setClearInput] = useState(false);
+  const { setActions } = useActionsStore();
 
-  const handleFileInput = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-    mode: 'ACTIONS'
-  ) => {
+  const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (!fileList?.item(0)) return;
     const text = await fileList.item(0)!.text();
@@ -21,25 +24,29 @@ const InputView: React.FC<{ className: string }> = ({ className }) => {
   //   setClearInput(!clearInput);
   // };
 
+  const handleSave = () => {
+    const { actions, nlu } = parser(text, type);
+    if (type === 'ACTIONS' && actions) setActions(actions);
+    // if (type === 'NLU' && nlu) setNlu(nlu);
+  };
+
   return (
     <div className={`${className} flex flex-col`}>
       <div className="flex">
-        <button className="btn btn-secondary flex items-center gap-2">
-          Actions
+        <button className="flex items-center gap-2">
+          {type === 'ACTIONS' ? 'Upload Actions' : 'Upload NLU'}
           <input
-            id="file-input-actions"
+            id={`file-input-${type}`}
             type="file"
             multiple={false}
-            onChange={(e) => {
-              handleFileInput(e, 'ACTIONS');
-            }}
+            onChange={handleFileInput}
           />
           {/* {clearInput && (
             <button
               className="p-2 rounded-full"
               onClick={() => {
                 const input = document.getElementById(
-                  'file-input-actions'
+                  `file-input-${type}`
                 ) as HTMLInputElement;
                 input.value = '';
                 setClearInput(!clearInput);
@@ -49,11 +56,14 @@ const InputView: React.FC<{ className: string }> = ({ className }) => {
             </button>
           )} */}
         </button>
+        <button className="p-2" onClick={handleSave}>
+          SAVE
+        </button>
       </div>
       <div className="flex flex-col h-full">
         <label>YAML</label>
         <textarea
-        value={text}
+          value={text}
           className="bg-gray-800 text-white h-full"
           onChange={(e) => setText(e.target.value)}
         />
@@ -64,8 +74,10 @@ const InputView: React.FC<{ className: string }> = ({ className }) => {
 
 export const ConfigPage = () => {
   return (
-    <main className="grid grid-cols-10 h-full pt-[48px]">
-      <InputView className="col-start-1 col-end-11" />
+    <main className="flex h-full pt-[48px]">
+      <InputView className="w-1/2" type="ACTIONS" />
+      <div className="p-4" />
+      <InputView className="w-1/2" type="NLU" />
     </main>
   );
 };

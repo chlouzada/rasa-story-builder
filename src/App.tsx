@@ -3,10 +3,21 @@ import { ActionsView } from './components/ActionsView';
 import { IntentsView } from './components/IntentsView';
 import { DndContext } from '@dnd-kit/core';
 import { StoryView } from './components/StoryView';
-
-
+import { useStoryStore } from './stores/story';
 
 export const App = () => {
+  const store = useStoryStore();
+
+  function handleDragEnd(props: any) {
+    console.log(props);
+
+    const { over, active } = props;
+
+    if (over) {
+      store.addStep({ name: 'action1' });
+    }
+  }
+
   return (
     <>
       <main className="grid grid-cols-10 h-full">
@@ -19,8 +30,3 @@ export const App = () => {
     </>
   );
 };
-
-
-function handleDragEnd(props:any) {
- console.log(props)
-}

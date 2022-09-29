@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
+import { useStoryStore } from '../stores/story';
 
 type DroppableProps = {
   id: string;
@@ -21,15 +22,25 @@ const Droppable: React.FC<DroppableProps> = (props) => {
   );
 };
 
-export const StoryView = ({
-  className,
-}: {
-  className?: string;
-}) => {
+const StoryItem: React.FC<{ name: string }> = ({ name }) => {
+  return (
+    <div className="m-2 p-2 shadow-md">
+      <p>{name}</p>
+    </div>
+  );
+};
+
+export const StoryView = ({ className }: { className?: string }) => {
+  const { steps } = useStoryStore();
+
   return (
     <div className={className}>
       <h2>Story Container</h2>
-      <Droppable id="story-container">a</Droppable>
+      <Droppable id="story-container">
+        {steps.map((step) => (
+          <StoryItem {...step} />
+        ))}
+      </Droppable>
     </div>
   );
 };

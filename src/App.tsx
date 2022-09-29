@@ -30,12 +30,10 @@ const StoryContainer = ({ className }: { className?: string }) => {
 export const App = () => {
   return (
     <>
-      <h1>Story Builder</h1>
-
       <main className="grid grid-cols-10 h-full">
-        <ActionsContainer className="col-start-1 col-end-3" />
-        <IntentsContainer className="col-start-3 col-end-9 " />
-        <StoryContainer className="col-start-9 col-end-11" />
+        <ActionsContainer className="col-start-1 col-end-3 shadow-2xl" />
+        <StoryContainer className="col-start-3 col-end-9 " />
+        <IntentsContainer className="col-start-9 col-end-11 shadow-2xl" />
       </main>
     </>
   );

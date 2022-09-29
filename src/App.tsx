@@ -1,22 +1,7 @@
 import React from 'react';
+import { ActionsView } from './components/ActionsView';
+import { IntentsView } from './components/IntentsView';
 
-const ActionsContainer = ({ className }: { className?: string }) => {
-  return (
-    <div className={className}>
-      <h2>Actions Container</h2>
-      <div></div>
-    </div>
-  );
-};
-
-const IntentsContainer = ({ className }: { className?: string }) => {
-  return (
-    <div className={className}>
-      <h2>Intent Container</h2>
-      <div></div>
-    </div>
-  );
-};
 
 const StoryContainer = ({ className }: { className?: string }) => {
   return (
@@ -31,9 +16,9 @@ export const App = () => {
   return (
     <>
       <main className="grid grid-cols-10 h-full">
-        <ActionsContainer className="col-start-1 col-end-3 shadow-2xl" />
+        <ActionsView className="col-start-1 col-end-3 shadow-2xl" />
         <StoryContainer className="col-start-3 col-end-9 " />
-        <IntentsContainer className="col-start-9 col-end-11 shadow-2xl" />
+        <IntentsView className="col-start-9 col-end-11 shadow-2xl" />
       </main>
     </>
   );

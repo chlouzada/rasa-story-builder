@@ -1,3 +1,5 @@
+import { Draggable } from './Draggable';
+
 const actions = [
   {
     name: 'action1',
@@ -6,9 +8,11 @@ const actions = [
 
 const ActionItem: React.FC<{ name: string }> = ({ name }) => {
   return (
-    <div className="m-2 p-2 shadow-md">
-      <p>{name}</p>
-    </div>
+    <Draggable id={name}>
+      <div className="m-2 p-2 shadow-md">
+        <p>{name}</p>
+      </div>
+    </Draggable>
   );
 };
 

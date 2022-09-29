@@ -2,10 +2,9 @@ import { ActionsView } from './components/ActionsView';
 import { IntentsView } from './components/IntentsView';
 import { StoryView } from './components/StoryView';
 import { DndContext } from './contexts/DndContext';
-
+import { useActions } from './hooks/useActions';
 
 export const App = () => {
-
   return (
     <main className="grid grid-cols-10 h-full">
       <DndContext>

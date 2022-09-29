@@ -1,10 +1,6 @@
+import { useState } from 'react';
+import { useActions } from '../hooks/useActions';
 import { Draggable } from './Draggable';
-
-const actions = [
-  {
-    name: 'action1',
-  },
-];
 
 const ActionItem: React.FC<{ name: string }> = ({ name }) => {
   return (
@@ -17,11 +13,12 @@ const ActionItem: React.FC<{ name: string }> = ({ name }) => {
 };
 
 export const ActionsView = ({ className }: { className?: string }) => {
+  const { actions, setActions } = useActions();
   return (
     <div className={className}>
-      <h2>Actions View</h2>
+      <div className='flex'><h2>Actions View </h2> <button>Upload</button></div>
       <div>
-        {actions.map((action) => (
+        {actions.responses.map((action) => (
           <ActionItem {...action} />
         ))}
       </div>

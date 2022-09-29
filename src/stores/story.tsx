@@ -17,26 +17,7 @@ type Store = {
 };
 
 export const useStoryStore = create<Store>((set) => ({
-  steps: [
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-    { name: 'action1' },
-  ],
+  steps: [],
   addStep: (step: Step) =>
     set((state) => ({ steps: [...state.steps, { name: step.name }] })),
 }));

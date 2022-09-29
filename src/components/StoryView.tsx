@@ -16,7 +16,11 @@ const Droppable: React.FC<DroppableProps> = (props) => {
   };
 
   return (
-    <div ref={setNodeRef} style={{ ...style }} className="flex flex-col grow">
+    <div
+      ref={setNodeRef}
+      style={{ ...style }}
+      className="flex flex-col grow min-h-full"
+    >
       {props.children}
     </div>
   );

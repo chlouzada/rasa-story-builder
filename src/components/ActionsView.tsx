@@ -4,7 +4,7 @@ import { Draggable } from './Draggable';
 
 const ActionItem: React.FC<{ name: string }> = ({ name }) => {
   return (
-    <Draggable id={name}>
+    <Draggable id={name} data={{ name, type: 'ACTIONS' }}>
       <div className="m-2 p-2 shadow-md">
         <p>{name}</p>
       </div>
@@ -29,7 +29,6 @@ const useActionsSync = () => {
     localStorage.setItem('actions', JSON.stringify(actions));
   }, [actions]);
 };
-
 
 export const ActionsView = ({ className }: { className?: string }) => {
   const { actions } = useActionsStore();

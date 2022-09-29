@@ -4,7 +4,7 @@ type Step = Intent | Action;
 
 type Intent = {
   name: string;
-  examples: string[];
+  // examples: string[];
 };
 
 type Action = {
@@ -17,7 +17,26 @@ type Store = {
 };
 
 export const useStoryStore = create<Store>((set) => ({
-  steps: [ { name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },{ name: 'action1' },],
+  steps: [
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+    { name: 'action1' },
+  ],
   addStep: (step: Step) =>
-    set((state) => ({ steps: [...state.steps, { name: 'action1' }] })),
+    set((state) => ({ steps: [...state.steps, { name: step.name }] })),
 }));

@@ -13,8 +13,9 @@ export const DndContext: React.FC<{ children: React.ReactNode }> = ({
   const store = useStoryStore();
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  function handleDragEnd({ over }: DragEndEvent) {
-    if (over) store.addStep({ name: 'action1' });
+  function handleDragEnd(event: DragEndEvent) {
+    console.log(event,event.active.data.current?.name)
+    if (event.over) store.addStep({ name: event.active.data.current?.name });
   }
 
   function handleDragStart(event: DragStartEvent) {

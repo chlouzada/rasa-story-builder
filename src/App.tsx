@@ -1,4 +1,4 @@
-import { ReactLocation, Router, Outlet, Link } from '@tanstack/react-location';
+import { ReactLocation, Router, Outlet } from '@tanstack/react-location';
 import { Header } from './components/Header';
 import { StoryBuilderPage } from './pages/StoryBuilder';
 import { ConfigPage } from './pages/Config';

@@ -39,7 +39,7 @@ export const DndContext: React.FC<{ children: React.ReactNode }> = ({
       {children}
       <DragOverlay dropAnimation={null}>
         {/* TODO: render item */}
-        {activeId ? <div>Item ${activeId}</div> : null}
+        {activeId ? <div className='w-12'>Item ${activeId}</div> : null}
       </DragOverlay>
     </DndKitContext>
   );

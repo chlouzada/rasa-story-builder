@@ -33,7 +33,7 @@ const StoryItem: React.FC<{ name: string; index: number }> = ({
 }) => {
   const id = useId();
   return (
-    <Draggable id={`${index}-${id}`} shrink>
+    <Draggable id={`${index}-${id}`}>
       <div className="m-2 p-2 border-primary border">
         <p>{name}</p>
       </div>

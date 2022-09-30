@@ -1,54 +1,22 @@
-import React, { createRef, useEffect, useId, useRef, useState } from 'react';
-import { useDroppable } from '@dnd-kit/core';
+import React, {useEffect, useId, useRef } from 'react';
 import { useStoryStore } from '../stores/story';
 import { Draggable } from './Draggable';
-import autoAnimate from '@formkit/auto-animate';
+import classNames from 'classnames';
+import { Droppable } from './Droppable';
 
-const AnimatedList: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const ref = useRef(null);
-  useEffect(() => {
-    ref.current &&
-      autoAnimate(ref.current, {
-        duration: 250,
-      });
-  }, [ref]);
-  return <div ref={ref}>{children}</div>;
-};
-
-type DroppableProps = {
-  id: string;
-  children: React.ReactNode;
-};
-
-const Droppable: React.FC<DroppableProps> = (props) => {
-  const { isOver, setNodeRef } = useDroppable({
-    id: props.id,
-  });
-  // const style = {
-  //   opacity: isOver ? 1 : 0.5,
-  // };
-
-  return (
-    <div
-      ref={setNodeRef}
-      // style={{ ...style }}
-      className="flex flex-col grow min-h-full"
-    >
-      <AnimatedList>{props.children}</AnimatedList>
-    </div>
-  );
-};
-
-const StoryItem: React.FC<{ name: string; index: number }> = ({
-  name,
-  index,
-}) => {
+const StepItem: React.FC<{
+  index: number;
+  name: string;
+  type: 'INTENT' | 'ACTION';
+}> = ({ index, name, type }) => {
   const id = useId();
   return (
-    <Draggable id={`${index}-${id}`}>
-      <div className="m-2 p-2 border-primary border">
+    <Draggable id={`${index}-${id}`} data={{ name, type }}>
+      <div
+        className={classNames('m-2 p-2 border-primary border', {
+          'text-end': type === 'INTENT',
+        })}
+      >
         <p>{name}</p>
       </div>
     </Draggable>
@@ -72,9 +40,9 @@ export const StoryView = ({ className }: { className?: string }) => {
   return (
     <div className={`${className} overflow-auto`}>
       <Droppable id="story-container">
-        {steps.map((step, index) => (
-          <StoryItem {...step} index={index} />
-        ))}
+        {steps.map((step, index) => {
+          return <StepItem {...step} index={index} />;
+        })}
         <ScrollToBottom />
       </Droppable>
     </div>

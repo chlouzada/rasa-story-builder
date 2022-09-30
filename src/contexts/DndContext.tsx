@@ -27,7 +27,7 @@ export const DndContext: React.FC<{ children: React.ReactNode }> = ({
       return;
     }
 
-    if (isOver) store.addStep({ name: event.active.data.current?.name });
+    if (isOver) store.addStep({ name: event.active.data.current?.name, type: event.active.data.current?.type });
   };
 
   const handleDragStart = (event: DragStartEvent) => {

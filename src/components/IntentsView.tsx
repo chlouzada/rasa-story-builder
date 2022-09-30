@@ -1,3 +1,5 @@
+import { Draggable } from './Draggable';
+
 const intents = [
   {
     name: 'intent1',
@@ -10,9 +12,11 @@ const IntentItem: React.FC<{ name: string; examples: string[] }> = ({
   examples,
 }) => {
   return (
-    <div className="m-2 p-2 shadow-md">
-      <p>{name}</p>
-    </div>
+    <Draggable id={name} data={{ name, type: 'INTENT' }}>
+      <div className="m-2 p-2 shadow-md">
+        <p>{name}</p>
+      </div>
+    </Draggable>
   );
 };
 

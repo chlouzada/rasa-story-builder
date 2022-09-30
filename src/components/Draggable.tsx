@@ -1,15 +1,15 @@
 import React from 'react';
 import { useDraggable } from '@dnd-kit/core';
-1;
+
 type Data = {
-  type: 'ACTIONS' | 'NLU';
+  type: 'ACTION' | 'INTENT';
   name: string;
 };
 
 type DraggableProps = {
   id: string;
   children: React.ReactNode;
-  data?: Data;
+  data: Data;
 };
 
 export function Draggable(props: DraggableProps) {

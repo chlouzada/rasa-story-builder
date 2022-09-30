@@ -17,6 +17,7 @@ type Store = {
   steps: Step[];
   addStep: (step: Step) => void;
   removeStep: (index: number) => void;
+  moveStep: (from: number, to: number) => void;
 };
 
 export const useStoryStore = create<Store>((set) => ({
@@ -29,4 +30,12 @@ export const useStoryStore = create<Store>((set) => ({
     set((state) => ({
       steps: state.steps.filter((_, i) => i !== index),
     })),
+
+   moveStep: (from: number, to: number) =>
+    set((state) => {
+      const steps = [...state.steps];
+      const [removed] = steps.splice(from, 1);
+      steps.splice(to, 0, removed);
+      return { steps };
+    }),
 }));

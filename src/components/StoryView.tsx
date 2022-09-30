@@ -4,6 +4,10 @@ import { Draggable } from './Draggable';
 import classNames from 'classnames';
 import { Droppable } from './Droppable';
 import { ScrollToBottom } from './ScrollToBottom';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { Item } from './Item';
+
 
 const StepItem: React.FC<{
   index: number;
@@ -11,16 +15,25 @@ const StepItem: React.FC<{
   type: 'INTENT' | 'ACTION';
 }> = ({ index, name, type }) => {
   const id = useId();
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: index });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
   return (
-    <Draggable id={`${index}-${id}`} data={{ name, type }}>
-      <div
-        className={classNames('m-2 p-2 border-primary border', {
-          'text-end': type === 'INTENT',
-        })}
-      >
-        <p>{name}</p>
-      </div>
-    </Draggable>
+    <Item
+      {...attributes}
+      {...listeners}
+      ref={setNodeRef}
+      style={style}
+      className={classNames('m-2 p-2 border-primary border', {
+        'text-end': type === 'INTENT',
+      })}
+    >
+      <p>{name}</p>
+    </Item>
   );
 };
 

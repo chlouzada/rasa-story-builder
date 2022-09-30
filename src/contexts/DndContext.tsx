@@ -13,14 +13,26 @@ export const DndContext: React.FC<{ children: React.ReactNode }> = ({
   const store = useStoryStore();
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  function handleDragEnd(event: DragEndEvent) {
-    console.log(event,event.active.data.current?.name)
-    if (event.over) store.addStep({ name: event.active.data.current?.name });
-  }
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over: isOver } = event;
 
-  function handleDragStart(event: DragStartEvent) {
+    if (String(active.id).split('-').length === 2) {
+      if (isOver) {
+        // TODO: move step
+        return;
+      }
+
+      const [index] = String(active.id).split('-');
+      store.removeStep(Number(index));
+      return;
+    }
+
+    if (isOver) store.addStep({ name: event.active.data.current?.name });
+  };
+
+  const handleDragStart = (event: DragStartEvent) => {
     setActiveId(String(event.active.id));
-  }
+  };
 
   return (
     <DndKitContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>

@@ -10,20 +10,22 @@ type Data = {
 type DraggableProps = {
   id: string;
   children: React.ReactNode;
-  data: Data;
+  data?: Data;
+  shrink?: true;
 };
 
 export function Draggable(props: DraggableProps) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform,isDragging } = useDraggable({
     ...props,
   });
-  // const style = {
-  //   // Outputs `translate3d(x, y, 0)`
-  //   transform: CSS.Translate.toString(transform),
-  // };
+  const style = {
+    // Outputs `translate3d(x, y, 0)`
+    // transform: CSS.Translate.toString(transform),
+    width: props.shrink && isDragging ? 'fit-content' : '100%',
+  };
 
   return (
-    <div ref={setNodeRef} {...listeners} {...attributes}>
+    <div ref={setNodeRef} {...listeners} {...attributes} style={style}>
       {props.children}
     </div>
   );

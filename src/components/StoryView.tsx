@@ -1,8 +1,9 @@
-import React, {useEffect, useId, useRef } from 'react';
+import React, { useId } from 'react';
 import { useStoryStore } from '../stores/story';
 import { Draggable } from './Draggable';
 import classNames from 'classnames';
 import { Droppable } from './Droppable';
+import { ScrollToBottom } from './ScrollToBottom';
 
 const StepItem: React.FC<{
   index: number;
@@ -23,25 +24,13 @@ const StepItem: React.FC<{
   );
 };
 
-const ScrollToBottom = () => {
-  const { steps } = useStoryStore();
-  const ref = useRef<HTMLDivElement>(null!);
-  useEffect(() => {
-    ref.current.scrollIntoView({ behavior: 'auto' });
-  }, []);
-  useEffect(() => {
-    ref.current.scrollIntoView({ behavior: 'smooth' });
-  }, [steps]);
-  return <div ref={ref} />;
-};
-
 export const StoryView = ({ className }: { className?: string }) => {
   const { steps } = useStoryStore();
   return (
     <div className={`${className} overflow-auto`}>
       <Droppable id="story-container">
         {steps.map((step, index) => {
-          return <StepItem {...step} index={index} />;
+          return <StepItem key={`step-${index}}`} {...step} index={index} />;
         })}
         <ScrollToBottom />
       </Droppable>

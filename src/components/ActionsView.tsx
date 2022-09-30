@@ -18,8 +18,8 @@ export const ActionsView = ({ className }: { className?: string }) => {
     <div className={className}>
       <h2>Actions View </h2>
       <div>
-        {actions.responses.map((action) => (
-          <ActionItem {...action} />
+        {actions.responses.map((action,index) => (
+          <ActionItem key={`${action.name}-${index}}`} {...action} />
         ))}
       </div>
     </div>

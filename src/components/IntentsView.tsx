@@ -1,11 +1,5 @@
+import { useIntentsStore } from '../stores/intents';
 import { Draggable } from './Draggable';
-
-const intents = [
-  {
-    name: 'intent1',
-    examples: ['example1'],
-  },
-];
 
 const IntentItem: React.FC<{ name: string; examples: string[] }> = ({
   name,
@@ -21,12 +15,13 @@ const IntentItem: React.FC<{ name: string; examples: string[] }> = ({
 };
 
 export const IntentsView = ({ className }: { className?: string }) => {
+  const { intents } = useIntentsStore();
   return (
     <div className={className}>
       <h2>Intent Container</h2>
       <div>
-        {intents.map((intent) => (
-          <IntentItem {...intent} />
+        {intents.map((intent, index) => (
+          <IntentItem key={`${intent.name}-${index}}`} {...intent} />
         ))}
       </div>
     </div>

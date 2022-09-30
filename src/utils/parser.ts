@@ -1,65 +1,78 @@
 import { parse, stringify } from 'yaml';
-import {
-  ActionTypeEnum,
-  Response,
-  CustomAction,
-  Actions,
-} from '../stores/actions';
-// import {
-//   INluIntent,
-//   INluLookup,
-//   INluRegex,
-//   NluTypeEnum,
-// } from "../contexts/NluContext";
+import { ActionTypeEnum, Actions } from '../stores/actions';
+import { Intent } from '../stores/intents';
 
-// interface INluEntry {
-//   intent?: string;
-//   lookup?: string;
-//   regex?: string;
-//   examples: string;
-// }
+interface INluEntry {
+  intent?: string;
+  lookup?: string;
+  regex?: string;
+  examples: string;
+}
 
-// interface INluParsed {
-//   intents: INluIntent[];
-//   lookups: INluLookup[];
-//   regexs: INluRegex[];
-// }
+interface INluParsed {
+  intents: INluIntent[];
+  lookups: INluLookup[];
+  regexs: INluRegex[];
+}
+
+export enum NluTypeEnum {
+  INTENT = "INTENT",
+  LOOKUP = "LOOKUP",
+  REGEX = "REGEX",
+}
+
+interface INluIntent extends INluEntryBase {
+  type: NluTypeEnum.INTENT;
+}
+
+interface INluLookup extends INluEntryBase {
+  type: NluTypeEnum.LOOKUP;
+}
+
+interface INluRegex extends INluEntryBase {
+  type: NluTypeEnum.REGEX;
+}
+
+interface INluEntryBase {
+  name: string;
+  examples: string[];
+}
 
 export const parser = (
   content: string | null,
   type: 'NLU' | 'ACTIONS'
-): { nlu?: any; actions?: Actions } => {
+): { nlu?: INluParsed; actions?: Actions } => {
   if (!content) throw new Error('content is null');
 
   const data = parse(content);
 
-  const parsed: { nlu?: any; actions?: Actions } = {};
+  const parsed: { nlu?: INluParsed; actions?: Actions } = {};
 
   if (type === 'NLU') {
-    // const nluObject: INluParsed = {
-    //   intents: [],
-    //   lookups: [],
-    //   regexs: [],
-    // };
-    // data?.nlu.map((entry: INluEntry) => {
-    //   let aux = {
-    //     name: (entry.intent || entry.lookup || entry.regex) as string,
-    //     examples: entry.examples
-    //       .split('\n')
-    //       .map((example) => example.slice(2, example.length)),
-    //   };
-    //   let type: NluTypeEnum = NluTypeEnum.INTENT;
-    //   if (entry.lookup) type = NluTypeEnum.LOOKUP;
-    //   if (entry.regex) type = NluTypeEnum.REGEX;
-    //   const nlu = {
-    //     ...aux,
-    //     type,
-    //   };
-    //   if (entry.intent) nluObject.intents!.push(nlu as INluIntent);
-    //   if (entry.lookup) nluObject.lookups!.push(nlu as INluLookup);
-    //   if (entry.regex) nluObject.regexs!.push(nlu as INluRegex);
-    // });
-    // parsed.nlu = nluObject;
+    const nluObject: INluParsed = {
+      intents: [],
+      lookups: [],
+      regexs: [],
+    };
+    data?.nlu.map((entry: INluEntry) => {
+      let aux = {
+        name: (entry.intent || entry.lookup || entry.regex) as string,
+        examples: entry.examples
+          .split('\n')
+          .map((example) => example.slice(2, example.length)),
+      };
+      let type: NluTypeEnum = NluTypeEnum.INTENT;
+      if (entry.lookup) type = NluTypeEnum.LOOKUP;
+      if (entry.regex) type = NluTypeEnum.REGEX;
+      const nlu = {
+        ...aux,
+        type,
+      };
+      if (entry.intent) nluObject.intents.push(nlu as INluIntent);
+      if (entry.lookup) nluObject.lookups.push(nlu as INluLookup);
+      if (entry.regex) nluObject.regexs.push(nlu as INluRegex);
+    });
+    parsed.nlu = nluObject;
   }
   if (type === 'ACTIONS') {
     const actions: Actions = {

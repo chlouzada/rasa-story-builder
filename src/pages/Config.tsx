@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useActionsStore } from '../stores/actions';
+import { useIntentsStore } from '../stores/intents';
 import { parser } from '../utils/parser';
 
 const InputView: React.FC<{ className: string; type: 'ACTIONS' | 'NLU' }> = ({
@@ -9,6 +10,7 @@ const InputView: React.FC<{ className: string; type: 'ACTIONS' | 'NLU' }> = ({
   const [text, setText] = useState('');
   const [clearInput, setClearInput] = useState(false);
   const { setActions } = useActionsStore();
+  const { setIntents } = useIntentsStore();
 
   const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
@@ -27,7 +29,7 @@ const InputView: React.FC<{ className: string; type: 'ACTIONS' | 'NLU' }> = ({
   const handleSave = () => {
     const { actions, nlu } = parser(text, type);
     if (type === 'ACTIONS' && actions) setActions(actions);
-    // if (type === 'NLU' && nlu) setNlu(nlu);
+    if (type === 'NLU' && nlu && nlu.intents) setIntents(nlu.intents);
   };
 
   return (

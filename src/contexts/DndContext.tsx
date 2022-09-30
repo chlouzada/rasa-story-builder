@@ -7,11 +7,25 @@ import {
   DragStartEvent,
 } from '@dnd-kit/core';
 
+// TODO: translate initial position to the cursor]
+// TODO: style
+const Widget = ({ name, x, y }: { name: string; x: number; y: number }) => {
+  return (
+    <div className="w-12">
+      <p>{name}</p>
+    </div>
+  );
+};
+
 export const DndContext: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const store = useStoryStore();
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [widget, setWidget] = useState<{
+    name: string;
+    x: number;
+    y: number;
+  } | null>(null);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over: isOver } = event;
@@ -27,19 +41,26 @@ export const DndContext: React.FC<{ children: React.ReactNode }> = ({
       return;
     }
 
-    if (isOver) store.addStep({ name: event.active.data.current?.name, type: event.active.data.current?.type });
+    if (isOver)
+      store.addStep({
+        name: event.active.data.current?.name,
+        type: event.active.data.current?.type,
+      });
   };
 
   const handleDragStart = (event: DragStartEvent) => {
-    setActiveId(String(event.active.id));
+    setWidget({ name: event.active.data.current?.name, x: 0, y: 0 });
   };
 
   return (
-    <DndKitContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <DndKitContext
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragCancel={() => setWidget(null)}
+    >
       {children}
       <DragOverlay dropAnimation={null}>
-        {/* TODO: render item */}
-        {activeId ? <div className='w-12'>Item ${activeId}</div> : null}
+        {widget && <Widget {...widget} />}
       </DragOverlay>
     </DndKitContext>
   );

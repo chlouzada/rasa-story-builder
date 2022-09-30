@@ -2,6 +2,20 @@ import React, { createRef, useEffect, useId, useRef, useState } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import { useStoryStore } from '../stores/story';
 import { Draggable } from './Draggable';
+import autoAnimate from '@formkit/auto-animate';
+
+const AnimatedList: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const ref = useRef(null);
+  useEffect(() => {
+    ref.current &&
+      autoAnimate(ref.current, {
+        duration: 250,
+      });
+  }, [ref]);
+  return <div ref={ref}>{children}</div>;
+};
 
 type DroppableProps = {
   id: string;
@@ -22,7 +36,7 @@ const Droppable: React.FC<DroppableProps> = (props) => {
       // style={{ ...style }}
       className="flex flex-col grow min-h-full"
     >
-      {props.children}
+      <AnimatedList>{props.children}</AnimatedList>
     </div>
   );
 };

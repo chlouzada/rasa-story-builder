@@ -24,6 +24,7 @@ export type CustomAction = {
 type ActionStore = {
   actions: Actions;
   setActions: (actions: Actions) => void;
+  addAction: (action: Response | CustomAction) => void;
 };
 
 export const useActionsStore = create<ActionStore>((set) => ({
@@ -32,4 +33,22 @@ export const useActionsStore = create<ActionStore>((set) => ({
     customActions: [],
   },
   setActions: (actions: Actions) => set({ actions }),
+  addAction: (action: Response | CustomAction) => {
+    set((state) => {
+      if (action.type === ActionTypeEnum.RESPONSE) {
+        return {
+          actions: {
+            ...state.actions,
+            responses: [...state.actions.responses, action],
+          },
+        };
+      }
+      return {
+        actions: {
+          ...state.actions,
+          customActions: [...state.actions.customActions, action],
+        },
+      };
+    });
+  },
 }));

@@ -88,7 +88,7 @@ export const NewIntentModal: React.FC<{
         </div>
       </form>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-4">
         <button
           className="btn"
           onClick={onSubmit}

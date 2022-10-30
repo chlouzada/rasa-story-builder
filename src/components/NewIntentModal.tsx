@@ -1,46 +1,21 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Button, Text, TextInput } from '@mantine/core';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { useIntentsStore } from '../stores/intents';
 // import {} from '@heroicons/react/solid'
-
-const ExampleInputList = ({ register }: { register?: any }) => {
-  const [count, setCount] = useState(1);
-
-  const inputs = [];
-  for (let i = 0; i < count + 1; i++) {
-    inputs.push(
-      <TextInput
-        placeholder={
-          count !== i ? 'Type here a message that the user might send' : ''
-        }
-        disabled={count === i}
-        // {...register('name', {
-        //   required: true,
-        //   pattern: /^[A-Za-z0-9_-]+$/i,
-        // })}
-        // error={
-        //   (errors.name?.type === 'required' && 'This field is required.') ||
-        //   (errors.name?.type === 'pattern' &&
-        //     'Invalid characters. Only letters, numbers, underscores and dashes are allowed.')
-        // }
-      />
-    );
-  }
-
-  return <>{inputs}</>;
-};
 
 export const NewIntentModal: React.FC<{
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }> = ({ isOpen, setIsOpen }) => {
+  const { addIntent } = useIntentsStore();
   const {
     register,
     handleSubmit,
     watch,
     control,
-
+    reset,
     formState: { errors },
   } = useForm<{ name: string; examples: { value: string }[] }>({
     defaultValues: {
@@ -49,21 +24,24 @@ export const NewIntentModal: React.FC<{
     },
   });
   const { fields, append } = useFieldArray({
-    control, // control props comes from useForm (optional: if you are using FormContext)
-    name: 'examples', // unique name for your Field Array
+    control,
+    name: 'examples',
   });
 
   const addExample = () => {
     append({ value: '' });
   };
 
-  // if(fields.length === 0) addExample();
+  useEffect(reset, [isOpen]);
 
-  console.log(fields);
-
-  console.log(errors);
-
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => {
+    addIntent({
+      name: data.name,
+      examples: data.examples.map((e) => e.value),
+      type: 'INTENT',
+    });
+    setIsOpen(false);
+  });
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -156,7 +134,9 @@ export const NewIntentModal: React.FC<{
                           ))}
                         </div>
                         <div className="flex justify-center text-2xl">
-                          <button type='button' onClick={addExample}>+</button>
+                          <button type="button" onClick={addExample}>
+                            +
+                          </button>
                         </div>
                       </div>
                     </div>

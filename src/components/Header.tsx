@@ -43,7 +43,7 @@ const Navigation = () => {
 
 export const Header = () => {
   return (
-    <div className="p-2 bg-[#3c0ba7] flex items-center w-full absolute shadow-md">
+    <div className="p-2 bg-primary flex items-center w-full absolute shadow-md">
       <p className="mr-auto font-extrabold text-white md:text-xl">
         Rasa Story Builder
       </p>

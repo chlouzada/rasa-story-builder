@@ -9,9 +9,11 @@ export type Intent = {
 type IntentStore = {
   intents: Intent[];
   setIntents: (intents: Intent[]) => void;
+  addIntent: (intent: Intent) => void;
 };
 
 export const useIntentsStore = create<IntentStore>((set) => ({
   intents: [],
   setIntents: (intents: Intent[]) => set({ intents }),
+  addIntent: (intent: Intent) => set((state) => ({ intents: [...state.intents, intent] })),
 }));

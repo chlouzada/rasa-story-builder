@@ -38,7 +38,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             '#485D84',
             '#364663',
             '#242F42',
-            '#121721',
           ],
         },
       }}

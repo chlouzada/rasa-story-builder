@@ -102,17 +102,17 @@ export const NewAction: React.FC = () => {
         </form>
 
         <div className="flex justify-between mt-4 gap-12">
-          <Button  color="secondary" onClick={toggle} className="w-1/5">
+          <Button color="primary" variant='subtle' onClick={toggle}>
             Cancel
           </Button>
-          <Button  color="primary" onClick={onSubmit} className="w-1/5">
+          <Button color="primary" onClick={onSubmit}>
             Save
           </Button>
         </div>
       </Modal>
-      <Button  color="primary" onClick={toggle} className="w-1/5">
-            New
-          </Button>
+      <Button color="primary" onClick={toggle}>
+        New
+      </Button>
     </>
   );
 };

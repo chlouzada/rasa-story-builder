@@ -1,7 +1,7 @@
 import { useIntentsStore } from '../stores/intents';
 import { Draggable } from './Draggable';
 import { useEffect, useState } from 'react';
-import { Modal, TextInput } from '@mantine/core';
+import { Button, Modal, TextInput } from '@mantine/core';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 const IntentItem: React.FC<{ name: string; examples: string[] }> = ({
@@ -37,6 +37,8 @@ export const NewIntent: React.FC = () => {
     control,
     name: 'examples',
   });
+
+  const toggle = () => setIsOpen((prev) => !prev);
 
   const addExample = () => {
     append({ value: '' });
@@ -99,18 +101,18 @@ export const NewIntent: React.FC = () => {
           </div>
         </form>
 
-        <div className="flex justify-between mt-4">
-          <button className="btn" onClick={onSubmit}>
+        <div className="flex justify-between mt-4 gap-12">
+          <Button color="primary" variant="subtle" onClick={toggle}>
             Cancel
-          </button>
-          <button className="btn" onClick={onSubmit}>
+          </Button>
+          <Button color="primary" onClick={onSubmit}>
             Save
-          </button>
+          </Button>
         </div>
       </Modal>
-      <button className="btn" onClick={() => setIsOpen(true)}>
+      <Button color="primary" onClick={toggle}>
         New
-      </button>
+      </Button>
     </>
   );
 };

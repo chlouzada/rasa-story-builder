@@ -101,18 +101,18 @@ export const NewAction: React.FC = () => {
           </div>
         </form>
 
-        <div className="flex justify-between mt-4">
-          <Button variant='outline'  color="dark" onClick={toggle}>
+        <div className="flex justify-between mt-4 gap-12">
+          <Button  color="secondary" onClick={toggle} className="w-1/5">
             Cancel
           </Button>
-          <button className="btn" onClick={onSubmit}>
+          <Button  color="primary" onClick={onSubmit} className="w-1/5">
             Save
-          </button>
+          </Button>
         </div>
       </Modal>
-      <button className="btn" onClick={() => setIsOpen(true)}>
-        New
-      </button>
+      <Button  color="primary" onClick={toggle} className="w-1/5">
+            New
+          </Button>
     </>
   );
 };

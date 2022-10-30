@@ -117,10 +117,10 @@ export const NewAction: React.FC = () => {
   );
 };
 
-export const ActionsView = ({ className }: { className?: string }) => {
+export const ActionsView = () => {
   const { actions } = useActionsStore();
   return (
-    <div className={className}>
+    <>
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl">User Intents</h2>
         <NewAction />
@@ -130,6 +130,6 @@ export const ActionsView = ({ className }: { className?: string }) => {
           <ActionItem key={`${action.name}-${index}}`} {...action} />
         ))}
       </div>
-    </div>
+    </>
   );
 };

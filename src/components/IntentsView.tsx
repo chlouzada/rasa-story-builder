@@ -117,21 +117,19 @@ export const NewIntent: React.FC = () => {
   );
 };
 
-export const IntentsView = ({ className }: { className?: string }) => {
+export const IntentsView = () => {
   const { intents } = useIntentsStore();
 
   return (
     <>
-      <div className={className}>
-        <div className="flex items-center justify-between">
-          <h2 className="font-bold text-xl">User Intents</h2>
-          <NewIntent />
-        </div>
-        <div>
-          {intents.map((intent, index) => (
-            <IntentItem key={`${intent.name}-${index}}`} {...intent} />
-          ))}
-        </div>
+      <div className="flex items-center justify-between">
+        <h2 className="font-bold text-xl">User Intents</h2>
+        <NewIntent />
+      </div>
+      <div>
+        {intents.map((intent, index) => (
+          <IntentItem key={`${intent.name}-${index}}`} {...intent} />
+        ))}
       </div>
     </>
   );

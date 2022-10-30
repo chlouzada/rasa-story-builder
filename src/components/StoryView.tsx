@@ -24,16 +24,14 @@ const StepItem: React.FC<{
   );
 };
 
-export const StoryView = ({ className }: { className?: string }) => {
+export const StoryView = () => {
   const { steps } = useStoryStore();
   return (
-    <div className={`${className} overflow-auto`}>
-      <Droppable id="story-container">
-        {steps.map((step, index) => {
-          return <StepItem key={`step-${index}}`} {...step} index={index} />;
-        })}
-        <ScrollToBottom />
-      </Droppable>
-    </div>
+    <Droppable id="story-container">
+      {steps.map((step, index) => {
+        return <StepItem key={`step-${index}}`} {...step} index={index} />;
+      })}
+      <ScrollToBottom />
+    </Droppable>
   );
 };

@@ -157,13 +157,13 @@ const StepItem: React.FC<{
 export const StoryView = () => {
   const { steps } = useStoryStore();
 
-  return <Diagram />;
-  // return (
-  //   <Droppable id="story-container">
-  //     {steps.map((step, index) => {
-  //       return <StepItem key={`step-${index}}`} {...step} index={index} />;
-  //     })}
-  //     <ScrollToBottom />
-  //   </Droppable>
-  // );
+  // return <Diagram />;
+  return (
+    <Droppable id="story-container">
+      {steps.map((step, index) => {
+        return <StepItem key={`step-${index}}`} {...step} index={index} />;
+      })}
+      <ScrollToBottom />
+    </Droppable>
+  );
 };

@@ -62,7 +62,7 @@ export const NewAction: React.FC = () => {
         centered
         size="40%"
         title={
-          <h1 className="text-xl font-bold">Add a new assistant action</h1>
+          <h1 className="text-xl font-bold">New Assistant Action</h1>
         }
       >
         <form onSubmit={onSubmit} className="p-4 bg-gray-100">

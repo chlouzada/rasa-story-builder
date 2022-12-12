@@ -47,6 +47,9 @@ export const NewIntent: React.FC = () => {
   useEffect(reset, [isOpen]);
 
   const onSubmit = handleSubmit((data) => {
+
+
+    console.log(data)
     addIntent({
       name: data.name,
       examples: data.examples.map((e) => e.value),
@@ -63,7 +66,7 @@ export const NewIntent: React.FC = () => {
         onClose={() => setIsOpen(false)}
         centered
         size="40%"
-        title={<h1 className="text-xl font-bold">Add a new user intent</h1>}
+        title={<h1 className="text-xl font-bold">New User Intent</h1>}
       >
         <form onSubmit={onSubmit} className="p-4 bg-gray-100">
           <h3 className="font-bold text-sm my-2">Name</h3>
@@ -88,7 +91,9 @@ export const NewIntent: React.FC = () => {
                   placeholder="Type here a message that the user might send"
                   {...register(`examples.${index}.value`, {
                     required: true,
-                    pattern: /^[A-Za-z0-9_-]+$/i,
+                    // az number and accent
+                    pattern: /^[A-Za-z0-9\u00C0-\u017F\s]+$/i,
+                    
                   })}
                 />
               ))}

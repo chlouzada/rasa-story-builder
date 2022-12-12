@@ -33,10 +33,10 @@ const NavItem = ({
 const Navigation = () => {
   return (
     <div className="flex md:gap-3">
-      <NavItem to="/" exact>
-        Builder
+      <NavItem to="/story" exact>
+        Story
       </NavItem>
-      <NavItem to="/config">Config</NavItem>
+      <NavItem to="/import">Import</NavItem>
     </div>
   );
 };

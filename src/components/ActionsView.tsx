@@ -122,7 +122,7 @@ export const ActionsView = () => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <h2 className="font-bold text-xl">User Intents</h2>
+        <h2 className="font-bold text-xl">Assistant Actions</h2>
         <NewAction />
       </div>
       <div>

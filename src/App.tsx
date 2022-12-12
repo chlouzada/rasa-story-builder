@@ -6,8 +6,8 @@ import { ConfigPage } from './pages/Config';
 const location = new ReactLocation();
 
 const routes = [
-  { path: '/', element: <StoryBuilderPage /> },
-  { path: '/config', element: <ConfigPage /> },
+  { path: '/story', element: <StoryBuilderPage /> },
+  { path: '/import', element: <ConfigPage /> },
 ];
 
 export const App = () => {

@@ -1,7 +1,9 @@
 import create from 'zustand';
 
+type Action = Response | CustomAction;
+
 export type Actions = {
-  responses: Response[]; // TODO: responses com mg e text
+  responses: Response[];
   customActions: CustomAction[];
 };
 
@@ -24,7 +26,7 @@ export type CustomAction = {
 type ActionStore = {
   actions: Actions;
   setActions: (actions: Actions) => void;
-  addAction: (action: Response | CustomAction) => void;
+  addAction: (action: Action) => void;
 };
 
 export const useActionsStore = create<ActionStore>((set) => ({
@@ -33,7 +35,7 @@ export const useActionsStore = create<ActionStore>((set) => ({
     customActions: [],
   },
   setActions: (actions: Actions) => set({ actions }),
-  addAction: (action: Response | CustomAction) => {
+  addAction: (action: Action) => {
     set((state) => {
       if (action.type === ActionTypeEnum.RESPONSE) {
         return {

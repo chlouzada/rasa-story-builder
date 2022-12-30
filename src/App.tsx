@@ -1,13 +1,14 @@
 import { ReactLocation, Router, Outlet } from '@tanstack/react-location';
 import { Header } from './components/Header';
 import { StoryBuilderPage } from './pages/StoryBuilder';
-import { ConfigPage } from './pages/Config';
+import { ImportPage } from './pages/Import';
 
 const location = new ReactLocation();
 
 const routes = [
+  { path: '/', element: <StoryBuilderPage /> },
   { path: '/story', element: <StoryBuilderPage /> },
-  { path: '/import', element: <ConfigPage /> },
+  { path: '/import', element: <ImportPage /> },
 ];
 
 export const App = () => {

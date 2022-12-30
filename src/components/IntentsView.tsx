@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { Button, Modal, TextInput } from '@mantine/core';
 import { useFieldArray, useForm } from 'react-hook-form';
 
+import userIntent from '../assets/user_intent.svg';
+
 const IntentItem: React.FC<{ name: string; examples: string[] }> = ({
   name,
 }) => {
@@ -11,6 +13,8 @@ const IntentItem: React.FC<{ name: string; examples: string[] }> = ({
     <Draggable id={name} data={{ name, type: 'INTENT' }}>
       <div className="m-2 p-2 shadow-md">
         <p>{name}</p>
+
+        <img src={userIntent} alt="user intent" className="w-6 h-6" />
       </div>
     </Draggable>
   );
@@ -47,9 +51,7 @@ export const NewIntent: React.FC = () => {
   useEffect(reset, [isOpen]);
 
   const onSubmit = handleSubmit((data) => {
-
-
-    console.log(data)
+    console.log(data);
     addIntent({
       name: data.name,
       examples: data.examples.map((e) => e.value),
@@ -93,7 +95,6 @@ export const NewIntent: React.FC = () => {
                     required: true,
                     // az number and accent
                     pattern: /^[A-Za-z0-9\u00C0-\u017F\s]+$/i,
-                    
                   })}
                 />
               ))}

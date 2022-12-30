@@ -24,8 +24,12 @@ import ReactFlow, {
 
 import 'reactflow/dist/style.css';
 
+import userIntentSvg from '../assets/user_intent.svg';
+import assistantActionSvg from '../assets/assistant_action.svg';
+
+
 import customNodeSvg from '../assets/custom_node.svg';
-import { ChatBubbleOvalLeftIcon  as Balloon} from '@heroicons/react/24/outline'
+import { ChatBubbleOvalLeftIcon as Balloon } from '@heroicons/react/24/outline';
 
 const initialNodes: Node[] = [
   {
@@ -80,9 +84,9 @@ const StepNode = ({ data }: any) => {
   return (
     <>
       <Handle type="target" position={Position.Top} />
-      <div className='relative w-24'>
+      <div className="relative w-24">
         <label htmlFor="text">{data.title} </label>
-        <Balloon className="absolute -inset-12 text-blue-500"/>
+        <Balloon className="absolute -inset-12 text-blue-500" />
         {/* <img src={balloon} className='h-24 absolute' /> */}
       </div>
       <Handle type="source" position={Position.Bottom} id="a" />
@@ -141,14 +145,20 @@ const StepItem: React.FC<{
   type: 'INTENT' | 'ACTION';
 }> = ({ index, name, type }) => {
   const id = useId();
+
+  const getImageSrc = (type: any) => {
+    const map: any = {
+      INTENT: userIntentSvg,
+      ACTION: assistantActionSvg,
+    };
+    return map[type];
+  };
+
   return (
     <Draggable id={`${index}-${id}`} data={{ name, type }}>
-      <div
-        className={classNames('m-2 p-2 border-primary border', {
-          'text-end': type === 'INTENT',
-        })}
-      >
-        <p>{name}</p>
+      <div className="relative flex justify-center">
+        <img src={getImageSrc(type)} alt="step" />
+        <p className="absolute h-full flex flex-col justify-center text-2xl font">{name}</p>
       </div>
     </Draggable>
   );

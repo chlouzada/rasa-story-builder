@@ -3,77 +3,7 @@ import { useActionsStore } from '../stores/actions';
 import { useIntentsStore } from '../stores/intents';
 import { parser } from '../utils/parser';
 import { Button, FileInput } from '@mantine/core';
-
-const InputView: React.FC<{ className: string; type: 'ACTIONS' | 'NLU' }> = ({
-  className,
-  type,
-}) => {
-  const [text, setText] = useState('');
-  const [clearInput, setClearInput] = useState(false);
-  const { setActions } = useActionsStore();
-  const { setIntents } = useIntentsStore();
-
-  const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files;
-    if (!fileList?.item(0)) return;
-    const text = await fileList.item(0)!.text();
-    setText(text);
-    setClearInput(!clearInput);
-  };
-
-  // const handleFileInputClear = () => {
-  //   const input = document.getElementById('fileInput') as HTMLInputElement;
-  //   input.value = '';
-  //   setClearInput(!clearInput);
-  // };
-
-  const handleSave = () => {
-    const { actions, nlu } = parser(text, type);
-    if (type === 'ACTIONS' && actions) setActions(actions);
-    if (type === 'NLU' && nlu && nlu.intents) setIntents(nlu.intents);
-  };
-
-  return (
-    <div className={`${className} flex flex-col`}>
-      <div className="flex">
-        <button className="flex items-center gap-2">
-          {type === 'ACTIONS' ? 'Upload Actions' : 'Upload NLU'}
-          <input
-            id={`file-input-${type}`}
-            type="file"
-            multiple={false}
-            onChange={handleFileInput}
-          />
-          {/* {clearInput && (
-            <button
-              className="p-2 rounded-full"
-              onClick={() => {
-                const input = document.getElementById(
-                  `file-input-${type}`
-                ) as HTMLInputElement;
-                input.value = '';
-                setClearInput(!clearInput);
-              }}
-            >
-              X
-            </button>
-          )} */}
-        </button>
-        <button className="p-2" onClick={handleSave}>
-          SAVE
-        </button>
-      </div>
-      <div className="flex flex-col h-full">
-        <label>YAML</label>
-        <textarea
-          value={text}
-          className="bg-gray-800 text-white h-full"
-          onChange={(e) => setText(e.target.value)}
-        />
-      </div>
-    </div>
-  );
-};
+import { showNotification } from '@mantine/notifications';
 
 const RenderFile: React.FC<{ className: string; text: string }> = ({
   className,
@@ -97,23 +27,35 @@ export const ImportPage = () => {
   const { setActions } = useActionsStore();
   const { setIntents } = useIntentsStore();
 
-  const [value, setValue] = useState<File>();
+  const [file, setFile] = useState<File>();
 
   useEffect(() => {
-    if (!value) return;
+    if (!file) return;
     const setter = async () => {
-      setText(await value.text());
+      setText(await file.text());
     };
     setter();
-  }, [value]);
+  }, [file]);
 
   const handleSave = (type: 'ACTIONS' | 'NLU') => {
+    if (!file) {
+      showNotification({
+        title: 'Import canceled',
+        message: 'Please select a file first.',
+      });
+      return;
+    }
+
     try {
       const { actions, nlu } = parser(text, type);
       if (type === 'ACTIONS' && actions) setActions(actions);
       if (type === 'NLU' && nlu && nlu.intents) setIntents(nlu.intents);
     } catch (error) {
-      console.error(error);
+      showNotification({
+        title: 'Import failed!',
+        message: 'Could not parse the file, please check the format.',
+        color: 'red',
+      });
     }
   };
 
@@ -126,7 +68,7 @@ export const ImportPage = () => {
             label="Select file"
             placeholder="nlu.yaml"
             className="w-full"
-            onChange={setValue as any}
+            onChange={setFile as any}
           />
           <div className="flex gap-4 justify-between">
             <Button

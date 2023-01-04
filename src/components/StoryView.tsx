@@ -22,8 +22,9 @@ const StepItem: React.FC<{
     if (type === 'INTENT') {
       const intent = intents.find((intent) => intent.name === name);
       if (intent) {
-        text =
-          intent.examples[Math.floor(Math.random() * intent.examples.length)];
+        const r = Math.floor(Math.random() * intent.examples.length);
+        text = intent.examples[r];
+        if(text.length === 0 ) console.log(text, r,intent,intents)
       }
     } else {
       const isCustomAction = !!actions.customActions.find(

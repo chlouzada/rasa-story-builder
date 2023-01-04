@@ -60,8 +60,10 @@ export const parser = (
         name: (entry.intent || entry.lookup || entry.regex) as string,
         examples: entry.examples
           .split('\n')
-          .map((example) => example.slice(2, example.length)),
+          .map((example) => example.slice(2, example.length))
+          .filter((example) => example.length > 0),
       };
+
       let type: NluTypeEnum = NluTypeEnum.INTENT;
       if (entry.lookup) type = NluTypeEnum.LOOKUP;
       if (entry.regex) type = NluTypeEnum.REGEX;
@@ -85,7 +87,7 @@ export const parser = (
     // transform data.responses oject to array
     actions.responses = Object.keys(data.responses).map((key) => ({
       name: key,
-      texts: data.responses[key] as string[],
+      texts: (data.responses[key] as string[]).filter((text) => text.length > 0),
       type: ActionTypeEnum.RESPONSE as ActionTypeEnum.RESPONSE, // FIXME: ?????
     }));
 
@@ -99,6 +101,8 @@ export const parser = (
 
     parsed.actions = actions;
   }
+
+  console.log(parsed)
 
   return parsed;
 };

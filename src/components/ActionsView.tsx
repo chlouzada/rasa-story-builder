@@ -97,7 +97,7 @@ export const NewAction: React.FC = () => {
               ))}
             </div>
             <div className="flex justify-center text-2xl">
-              <button type="button" onClick={addExample}>
+              <button type="button" onClick={addExample} className="mt-4">
                 +
               </button>
             </div>
@@ -124,7 +124,7 @@ export const ActionsView = () => {
   const { actions } = useActionsStore();
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between p-2">
         <h2 className="font-bold text-xl">Assistant Actions</h2>
         <NewAction />
       </div>

@@ -101,7 +101,7 @@ export const NewIntent: React.FC = () => {
               ))}
             </div>
             <div className="flex justify-center text-2xl">
-              <button type="button" onClick={addExample}>
+              <button type="button" onClick={addExample} className="mt-4">
                 +
               </button>
             </div>
@@ -129,7 +129,7 @@ export const IntentsView = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between p-2">
         <h2 className="font-bold text-xl">User Intents</h2>
         <NewIntent />
       </div>

@@ -20,8 +20,6 @@ intents:
   - pergunta_cordial
   - feliz
   - prazer
-  - deboche:
-      use_entities: []
 slots:
   problema_emocional:
     type: categorical

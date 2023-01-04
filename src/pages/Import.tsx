@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useActionsStore } from '../stores/actions';
 import { useIntentsStore } from '../stores/intents';
 import { parser } from '../utils/parser';
-import { Button, FileInput } from '@mantine/core';
+import { Button, FileInput, Card } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { localStorageKeys } from '../constants/localStorageKeys';
 
@@ -48,12 +48,11 @@ export const ImportPage = () => {
     }
 
     try {
-      console.log(text,type)
       const { actions, nlu } = parser(text, type);
       if (type === 'ACTIONS' && actions) setActions(actions);
       if (type === 'NLU' && nlu && nlu.intents) setIntents(nlu.intents);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       showNotification({
         title: 'Import failed!',
         message: 'Could not parse the file, please check the format.',
@@ -79,14 +78,14 @@ export const ImportPage = () => {
   return (
     <main className="flex h-full pt-[48px]">
       <div className="w-1/2 flex flex-col justify-center items-center">
-        <div className="w-72 flex flex-col gap-6">
+        <Card shadow="sm" p="lg" radius="md" withBorder>
           <FileInput
             label="Select file"
             placeholder="nlu.yaml"
             className="w-full"
             onChange={setFile as any}
           />
-          <div className="flex gap-4 justify-between">
+          <div className="flex gap-4 justify-between mt-4">
             <Button
               color={'primary'}
               variant="subtle"
@@ -102,7 +101,7 @@ export const ImportPage = () => {
               Save as Intents
             </Button>
           </div>
-          <div className="flex gap-4 justify-between">
+          <div className="flex gap-4 justify-between mt-4">
             <Button
               color={'primary'}
               variant="subtle"
@@ -118,7 +117,7 @@ export const ImportPage = () => {
               Delete All Intents
             </Button>
           </div>
-        </div>
+        </Card>
       </div>
       <div className="p-4" />
       <RenderFile text={text} className="w-1/2" />

@@ -1,16 +1,21 @@
 import { Button, Modal, TextInput } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useActionsStore, Actions, ActionTypeEnum } from '../stores/actions';
-import { Draggable } from './Draggable';
+import { useActionsStore, ActionTypeEnum } from '../stores/actions';
+import { useStoryStore } from '../stores/story';
 
 const ActionItem: React.FC<{ name: string }> = ({ name }) => {
+  const { addStep } = useStoryStore();
+
   return (
-    <Draggable id={name} data={{ name, type: 'ACTION' }}>
-      <div className="m-2 p-2 shadow-md">
-        <p>{name}</p>
-      </div>
-    </Draggable>
+    <div
+      className="m-2 p-2 shadow-md"
+      onClick={() => {
+        addStep({ name, type: 'ACTION' });
+      }}
+    >
+      <p>{name}</p>
+    </div>
   );
 };
 
@@ -61,9 +66,7 @@ export const NewAction: React.FC = () => {
         onClose={() => setIsOpen(false)}
         centered
         size="40%"
-        title={
-          <h1 className="text-xl font-bold">New Assistant Action</h1>
-        }
+        title={<h1 className="text-xl font-bold">New Assistant Action</h1>}
       >
         <form onSubmit={onSubmit} className="p-4 bg-gray-100">
           <h3 className="font-bold text-sm my-2">Name</h3>
@@ -102,7 +105,7 @@ export const NewAction: React.FC = () => {
         </form>
 
         <div className="flex justify-between mt-4 gap-12">
-          <Button color="primary" variant='subtle' onClick={toggle}>
+          <Button color="primary" variant="subtle" onClick={toggle}>
             Cancel
           </Button>
           <Button color="primary" onClick={onSubmit}>

@@ -1,22 +1,23 @@
 import { useIntentsStore } from '../stores/intents';
-import { Draggable } from './Draggable';
 import { useEffect, useState } from 'react';
 import { Button, Modal, TextInput } from '@mantine/core';
 import { useFieldArray, useForm } from 'react-hook-form';
-
-import userIntent from '../assets/user_intent.svg';
+import { useStoryStore } from '../stores/story';
 
 const IntentItem: React.FC<{ name: string; examples: string[] }> = ({
   name,
 }) => {
-  return (
-    <Draggable id={name} data={{ name, type: 'INTENT' }}>
-      <div className="m-2 p-2 shadow-md">
-        <p>{name}</p>
+  const { addStep } = useStoryStore();
 
-        <img src={userIntent} alt="user intent" className="w-6 h-6" />
-      </div>
-    </Draggable>
+  return (
+    <div
+      className="m-2 p-2 shadow-md"
+      onClick={() => {
+        addStep({ name, type: 'INTENT' });
+      }}
+    >
+      <p>{name}</p>
+    </div>
   );
 };
 

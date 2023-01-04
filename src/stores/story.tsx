@@ -3,7 +3,7 @@ import create from 'zustand';
 type Step = Intent | Action;
 
 type Intent = {
-  type: 'ACTION';
+  type: 'INTENT';
   name: string;
   // examples: string[];
 };

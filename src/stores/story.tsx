@@ -15,12 +15,20 @@ type Action = {
 
 type Store = {
   steps: Step[];
+  showContent: boolean;
+  toggleContent: () => void;
+  clear: () => void;
   addStep: (step: Step) => void;
   removeStep: (index: number) => void;
 };
 
 export const useStoryStore = create<Store>((set) => ({
   steps: [],
+  showContent: false,
+  toggleContent: () => {
+    set((state) => ({ showContent: !state.showContent }));
+  },
+  clear: () => set({ steps: [] }),
   addStep: (step: Step) =>
     set((state) => ({
       steps: [...state.steps, { name: step.name, type: step.type }],

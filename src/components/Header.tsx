@@ -45,7 +45,7 @@ const Navigation = () => {
 };
 
 const Control = () => {
-  const { steps } = useStoryStore();
+  const { steps, clear, toggleContent, showContent } = useStoryStore();
 
   const yaml = steps
     .map((step, index) => {
@@ -82,8 +82,16 @@ const Control = () => {
 
   return (
     <div className="flex md:gap-3">
+      <button className="py-1 px-2 text-white" onClick={toggleContent}>
+        {showContent ? 'Hide Content' : 'Show Content'}
+      </button>
+
       <button className="py-1 px-2 text-white" onClick={modal}>
         Show YAML
+      </button>
+
+      <button className="py-1 px-2 text-white" onClick={clear}>
+        Clear Story
       </button>
     </div>
   );

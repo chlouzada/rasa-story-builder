@@ -4,6 +4,7 @@ import { App } from './App';
 import { MantineProvider, createEmotionCache } from '@mantine/core';
 
 import './globals.css';
+import { ModalsProvider } from '@mantine/modals';
 import { NotificationsProvider } from '@mantine/notifications';
 
 const cache = createEmotionCache({ key: 'mantine' });
@@ -44,7 +45,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       }}
     >
       <NotificationsProvider position='bottom-center'>
+      <ModalsProvider>
         <App />
+      </ModalsProvider>
       </NotificationsProvider>
     </MantineProvider>
   </React.StrictMode>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@tanstack/react-location';
+import { Link, useLocation } from '@tanstack/react-location';
 import { useStoryStore } from '../stores/story';
 import { openModal } from '@mantine/modals';
 import { Textarea, Button } from '@mantine/core';
@@ -46,6 +46,8 @@ const Navigation = () => {
 
 const Control = () => {
   const { steps, clear, toggleContent, showContent } = useStoryStore();
+  const location = useLocation();
+ 
 
   const yaml = steps
     .map((step, index) => {
@@ -79,6 +81,8 @@ const Control = () => {
       ),
     });
   };
+
+  if (location.current.pathname !== '/story') return <></>;
 
   return (
     <div className="flex md:gap-3">

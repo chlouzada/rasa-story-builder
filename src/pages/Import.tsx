@@ -4,6 +4,7 @@ import { useIntentsStore } from '../stores/intents';
 import { parser } from '../utils/parser';
 import { Button, FileInput } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
+import { localStorageKeys } from '../constants/localStorageKeys';
 
 const RenderFile: React.FC<{ className: string; text: string }> = ({
   className,
@@ -47,10 +48,12 @@ export const ImportPage = () => {
     }
 
     try {
+      console.log(text,type)
       const { actions, nlu } = parser(text, type);
       if (type === 'ACTIONS' && actions) setActions(actions);
       if (type === 'NLU' && nlu && nlu.intents) setIntents(nlu.intents);
     } catch (error) {
+      console.log(error)
       showNotification({
         title: 'Import failed!',
         message: 'Could not parse the file, please check the format.',
@@ -59,11 +62,24 @@ export const ImportPage = () => {
     }
   };
 
+  const deleteStore = (type: 'ACTIONS' | 'NLU') => {
+    if (type === 'ACTIONS') {
+      localStorage.removeItem(localStorageKeys.ACTIONS);
+      setActions({
+        responses: [],
+        customActions: [],
+      });
+    }
+    if (type === 'NLU') {
+      localStorage.removeItem(localStorageKeys.INTENTS);
+      setIntents([]);
+    }
+  };
+
   return (
     <main className="flex h-full pt-[48px]">
       <div className="w-1/2 flex flex-col justify-center items-center">
-        <div className="w-72">
-          {' '}
+        <div className="w-72 flex flex-col gap-6">
           <FileInput
             label="Select file"
             placeholder="nlu.yaml"
@@ -81,9 +97,25 @@ export const ImportPage = () => {
             <Button
               color={'primary'}
               variant="subtle"
-              onClick={() => handleSave('ACTIONS')}
+              onClick={() => handleSave('NLU')}
             >
               Save as Intents
+            </Button>
+          </div>
+          <div className="flex gap-4 justify-between">
+            <Button
+              color={'primary'}
+              variant="subtle"
+              onClick={() => deleteStore('ACTIONS')}
+            >
+              Delete All Actions
+            </Button>
+            <Button
+              color={'primary'}
+              variant="subtle"
+              onClick={() => deleteStore('NLU')}
+            >
+              Delete All Intents
             </Button>
           </div>
         </div>

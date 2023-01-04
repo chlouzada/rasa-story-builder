@@ -47,13 +47,14 @@ export const parser = (
   const data = parse(content);
 
   const parsed: { nlu?: INluParsed; actions?: Actions } = {};
-
+  
   if (type === 'NLU') {
     const nluObject: INluParsed = {
       intents: [],
       lookups: [],
       regexs: [],
     };
+
     data?.nlu.map((entry: INluEntry) => {
       let aux = {
         name: (entry.intent || entry.lookup || entry.regex) as string,
@@ -68,6 +69,7 @@ export const parser = (
         ...aux,
         type,
       };
+
       if (entry.intent) nluObject.intents.push(nlu as INluIntent);
       if (entry.lookup) nluObject.lookups.push(nlu as INluLookup);
       if (entry.regex) nluObject.regexs.push(nlu as INluRegex);

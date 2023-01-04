@@ -8,14 +8,25 @@ const ActionItem: React.FC<{ name: string }> = ({ name }) => {
   const { addStep } = useStoryStore();
 
   return (
-    <div
-      className="m-2 p-2 shadow-md"
+    <Button
+      color={'primary'}
+      variant="subtle"
+      fullWidth
+      className='mb-2 shadow-sm' 
       onClick={() => {
         addStep({ name, type: 'ACTION' });
       }}
     >
-      <p>{name}</p>
-    </div>
+      {name}
+    </Button>
+    // <div
+    //   className="m-2 p-2 shadow-md"
+    //   onClick={() => {
+    //     addStep({ name, type: 'ACTION' });
+    //   }}
+    // >
+    //   <p>{name}</p>
+    // </div>
   );
 };
 

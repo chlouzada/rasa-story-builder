@@ -10,14 +10,17 @@ const IntentItem: React.FC<{ name: string; examples: string[] }> = ({
   const { addStep } = useStoryStore();
 
   return (
-    <div
-      className="m-2 p-2 shadow-md"
+    <Button
+      color={'primary'}
+      variant="subtle"
+      fullWidth
+      className='mb-2 shadow-sm' 
       onClick={() => {
         addStep({ name, type: 'INTENT' });
       }}
     >
-      <p>{name}</p>
-    </div>
+      {name}
+    </Button>
   );
 };
 

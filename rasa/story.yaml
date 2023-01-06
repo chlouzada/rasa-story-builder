@@ -1,0 +1,19 @@
+stories:
+ - story: saudação com ajuda
+   steps:
+   - intent: saudação
+   - action: saudação
+   - slot_was_set:
+     - nome: Carlos
+   - action: ajuda_com_nome
+
+- story: saudação peguntando nome
+   steps:
+   - intent: saudação
+   - action: saudação
+   - slot_was_set:
+     - nome: null
+   - action: pergunta_nome
+
+
+

@@ -1,0 +1,20 @@
+stories:
+ - story: comprimento e oferece ajuda
+   steps:
+   - intent: saudação
+   - action: saudação
+   - slot_was_set:
+     - nome: Carlos
+   - action: ajuda_com_nome
+
+- story: comprimento e pergunta nome
+   steps:
+   - intent: saudação
+   - action: saudação
+   - slot_was_set:
+     - nome: null
+   - action: pergunta_nome
+
+
+
+   

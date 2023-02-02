@@ -82,7 +82,7 @@ const Control = () => {
     });
   };
 
-  if (location.current.pathname !== '/story') return <></>;
+  if (location.current.pathname === '/import') return <></>;
 
   return (
     <div className="flex md:gap-3">

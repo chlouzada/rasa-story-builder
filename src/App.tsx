@@ -1,9 +1,10 @@
-import { ReactLocation, Router, Outlet } from '@tanstack/react-location';
+import { ReactLocation, Router, Outlet, createHashHistory } from '@tanstack/react-location';
 import { Header } from './components/Header';
 import { StoryBuilderPage } from './pages/StoryBuilder';
 import { ImportPage } from './pages/Import';
 
-const location = new ReactLocation();
+const hashHistory = createHashHistory()
+const location = new ReactLocation({ history: hashHistory});
 
 const routes = [
   { path: '/', element: <StoryBuilderPage /> },
@@ -13,7 +14,7 @@ const routes = [
 
 export const App = () => {
   return (
-    <Router location={location} routes={routes}>
+    <Router location={location} routes={routes} >
       <Header />
       <Outlet />
     </Router>

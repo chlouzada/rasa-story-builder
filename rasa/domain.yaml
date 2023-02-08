@@ -3,55 +3,8 @@ session_config:
   session_expiration_time: 60 # em minutos
   carry_over_slots_to_new_session: true
 intents:
-  - ajuda_emocional:
-      use_entities: []
   - saudacao
-  - adeus
-  - agradecimento
-  - afirmacao
-  - negacao
-  - bot_desafio
-  - mood_great
-  - mood_unhappy
-  - fora_do_escopo
-  - nlu_fallback
-  - listar_comandos
-  - minhas_acoes
-  - pergunta_cordial
-  - feliz
-  - prazer
 slots:
-  problema_emocional:
-    type: categorical
-    influence_conversation: true
-    values:
-      - ansiedade
-      - desanimo
-      - raiva
-      - medo
-      - ciume
-      - estresse
-  assunto:
-    type: text
-    influence_conversation: true
-  primeiro_nome:
-    type: text
-    influence_conversation: true # possibilidade de false
-  requested_slot:
-    type: unfeaturized
-    influence_conversation: false
-  nome:
-    type: text
-    influence_conversation: true
-  email:
-    type: text
-    influence_conversation: true
-  telefone:
-    type: text
-    influence_conversation: true
-  data:
-    type: text
-    influence_conversation: true
   hora:
     type: text
     influence_conversation: true
@@ -67,6 +20,4 @@ responses:
        - text: |
            You're all set! Check your inbox to confirm your subscription.
 actions:
-  - action_reset_all_slots
-  - action_pesquisar_no_blog
   - action_session_start

@@ -16,9 +16,9 @@ interface INluParsed {
 }
 
 export enum NluTypeEnum {
-  INTENT = "INTENT",
-  LOOKUP = "LOOKUP",
-  REGEX = "REGEX",
+  INTENT = 'INTENT',
+  LOOKUP = 'LOOKUP',
+  REGEX = 'REGEX',
 }
 
 interface INluIntent extends INluEntryBase {
@@ -47,7 +47,7 @@ export const parser = (
   const data = parse(content);
 
   const parsed: { nlu?: INluParsed; actions?: Actions } = {};
-  
+
   if (type === 'NLU') {
     const nluObject: INluParsed = {
       intents: [],
@@ -84,10 +84,17 @@ export const parser = (
       customActions: [],
     };
 
+    console.log(data.responses);
+
     // transform data.responses oject to array
     actions.responses = Object.keys(data.responses).map((key) => ({
       name: key,
-      texts: (data.responses[key] as string[]).filter((text) => text.length > 0),
+      texts: (data.responses[key] as string[] | [{ text: string }]).map(
+        (text) => {
+          if (typeof text === 'string') return text;
+          return text.text;
+        }
+      ),
       type: ActionTypeEnum.RESPONSE as ActionTypeEnum.RESPONSE, // FIXME: ?????
     }));
 
@@ -96,13 +103,12 @@ export const parser = (
       type: ActionTypeEnum.CUSTOM_ACTION,
       name: action,
     }));
+    console.log(actions);
 
     // TODO: outros tipos de responses (img/button)
 
     parsed.actions = actions;
   }
-
-  console.log(parsed)
 
   return parsed;
 };

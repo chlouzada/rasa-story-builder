@@ -33,6 +33,7 @@ const StepItem: React.FC<{
         const responses = actions.responses;
         const action = responses.find((action) => action.name === name);
         if (action) {
+
           const random =
             action.texts[Math.floor(Math.random() * action.texts.length)];
           if (typeof random === 'string') text = random;

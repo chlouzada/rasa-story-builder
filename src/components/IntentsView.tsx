@@ -55,7 +55,6 @@ export const NewIntent: React.FC = () => {
   useEffect(reset, [isOpen]);
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
     addIntent({
       name: data.name,
       examples: data.examples.map((e) => e.value),

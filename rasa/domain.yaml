@@ -57,18 +57,13 @@ slots:
     influence_conversation: true
 responses:
    utter_greet:
-       - text: |
-           Hello! How can I help you?
-       - text: |
-           Hi!
+       - text: Hello! How can I help you?
+       - text: Hi!
    utter_ask_email:
-       - text: |
-           What is your email address?
+       - text: What is your email address?
    utter_subscribed:
-       - text: |
-           Check your inbox in order to finish subscribing to the newsletter!
-       - text: |
-           You're all set! Check your inbox to confirm your subscription.
+       - text: Check your inbox in order to finish subscribing to the newsletter!
+       - text: You're all set! Check your inbox to confirm your subscription.
 actions:
   - action_reset_all_slots
   - action_pesquisar_no_blog

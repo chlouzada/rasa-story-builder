@@ -56,46 +56,19 @@ slots:
     type: text
     influence_conversation: true
 responses:
-
-  utter_saudacao:
-    - text: |-
-        Oie, tudo bem com você?
-  utter_resposta_cordial:
-    - text: |-
-        Tudo ótimo!
-        E com você? 😊
-  utter_obrigado:
-    - text: |-
-        De nada, espero que tenha te ajudado 😊
-  utter_prazer:
-    - text: |-
-        Feliz em te conhecer, {{firstName}}
-        Em que posso te ajudar?
-  utter_oferecer_ajuda_saudacao:
-    - text: Em que posso te ajudar?
-  utter_humor_feliz:
-    - text: |-
-        Maravilha!!
-        Em que posso te ajudar?
-  utter_happy:
-    - text: |-
-        Maravilha!!
-        Em que posso te ajudar?
-  utter_adeus:
-    - text: tchau tchau ✌🏽
-    - text: Sempre que quiser conversar comigo, estou aqui para você!
-    - text: Não deixa de fazer contato, tá? A gente conversa outra hora 😊
-    - text: Até mais, estou aqui a qualquer momento que precisar :)
-  utter_iamabot:
-    - text: Eu sou uma inteligência artificial
-  utter_fora_do_escopo:
-    - text: Desculpa.. não posso te ajudar com isso.
-  utter_default:
-    - text: Desculpa não entendi, pode reformular?
-  utter_oferecer_ajuda:
-    - text: Em que posso te ajudar?
-    - text: Posso te ajudar em alguma coisa?
-    - text: Deseja mais alguma coisa?
+   utter_greet:
+       - text: |
+           Hello! How can I help you?
+       - text: |
+           Hi!
+   utter_ask_email:
+       - text: |
+           What is your email address?
+   utter_subscribed:
+       - text: |
+           Check your inbox in order to finish subscribing to the newsletter!
+       - text: |
+           You're all set! Check your inbox to confirm your subscription.
 actions:
   - action_reset_all_slots
   - action_pesquisar_no_blog
